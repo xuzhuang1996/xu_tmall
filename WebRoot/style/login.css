@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+body{font-family:"宋体"; margin:0 auto; text-align:center; font-size:14px; background-color:#0591C2;}
+img{border:0;}
+div,p,input,form,h1,h2,h3,h4,h5,dl,dt,dd,ul,li,span{margin:0; padding:0;}
+a{text-decoration:none; color:#666666; font-size:14px;}
+ul,li{list-style:none;}
+
+#login{ width:602px;height:353px;background:url(../images/login_bj.png) no-repeat; text-align:center; margin:0 auto; margin-top:120px;}
+.bj{width:602px; height:253px;padding-top:90px;}
+.bj_left{float:left;  width:230px; height:137px;}
+.bj_right{float:right;  width:300px; height:auto;}
+.rt{width:350px; height:27px; background:url(../images/zi.jpg) left center no-repeat;}
+.rb{width:350px;height:150px;margin-top:5px;}
+.rb p{text-align:left; padding-left:5px; line-height:30px; font-weight:bold;}

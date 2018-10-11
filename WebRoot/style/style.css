@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin: 0 auto;padding: 0;}
+
+body{font-family:"宋体";  text-align:center; font-size:14px; }
+img{border:0;}
+div,p,input,form,h1,h2,h3,h4,h5,dl,dt,dd,ul,li,span{margin:0; padding:0;}
+a{text-decoration:none; color:#666666; font-size:14px;}
+ul,li{list-style:none;}
+
+/**********************************************************login***************************************************************************/
+#login_t{width:568px; height:368px; text-align:center; margin:0 auto; background:url(../images/login_t_bj.png) no-repeat; margin-top:100px;}
+.con{width:568px; height:188px;  padding-top:120px;}
+.con form{}
+.con form p{line-height:35px; text-align:left; padding-left:140px;}
+
+/**********************************************************top***************************************************************************/
+#top{width:100%; height:71px;overflow:hidden; text-align:center; margin:0 auto; background-color:#7DCFFF;}
+.top_left{float:left; width:35%; height:71px; float:left; }
+.top_right{float:right; width:65%; height:71px;  background:url(../images/center_bj.jpg) no-repeat;}
+
+/******************整体布局******************************/
+#bd{  
+	width: auto;
+	border: solid 1px #ccc;
+ }
+/*border: 1px solid red;*/
+#bd .left_f{float:left;margin-top:5px;  width:190px; }
+#bd .right_f{margin-left:200px;margin-top:15px;}
+
+
+
+/****************************left*******************/
+#left{width:190px; min-height:300px; background:url(../images/left_bj.jpg) repeat-x; }
+.s_left{width:183px; height:230px;padding-top:2px;background-color:#EDF7FF; border:solid 1px #CBD4DB;text-align:center;}
+.s_left p{width:180px; height:21px; background:url(../images/p_bj.jpg) repeat-x;font-size:12px;color:#FFFFFF;font-weight:bold; line-height:21px;}
+.s_left ul{ }
+.s_left ul li{line-height:24px; background:url(../images/li_bj.jpg) }
+.s_left ul li a{ font-size:12px;font-weight:bold;color:#283032; display:block;width:140px; height:30px;text-align:left;padding-left:40px;  margin-top:10px;}
+.s_left ul li a:hover{color:#1677D8;}
+
+
+
+
+/****************************right*******************/
+#right{width:100%; height:auto; text-align:center;}
+.right_top{width:100%;height:22px; background:url(../images/right_top_bj.jpg) repeat-x;}
+.right_top p{text-align:left; padding-left:40px; line-height:22px; color:#08448A; font-weight:bold; background:url(../images/001.gif) 10px center no-repeat;}
+.edit_Exam p{text-align:left; padding-left:40px; line-height:22px; color:#08448A; font-weight:bold; background:url(../images/72.png) 10px center no-repeat;}
+.right_bottom{margin-top:20px;}
+h1{font-size:16px; font-weight:bold; color:#08448A; background:url(../images/yhmmxg.jpg) no-repeat center center; margin-top:10px;margin-bottom:10px;width:100%;}
+h2{font-size:19px; font-weight:bold; color:#08448A; background:url(../images/yhxxxg.jpg) no-repeat center center; margin-top:10px;margin-bottom:10px;width:100%;}
+.baise{text-align:center; margin:0 auto;}
+
+/****************************main******************************/
+#main{width:100%; height:auto; text-align:center; margin:0 auto;}
+.main_top{width:100%; height:22px; background:url(../images/right_top_bj.jpg) repeat-x;}
+.main_top{width:100%; height:22px; background:url(../images/right_top_bj.jpg) repeat-x;}
+.main_top p{background:url(../images/a.gif) no-repeat 10px center; text-align:left; padding-left:40px; line-height:22px; color:#08448A; font-weight:bold;}
+.user_manager{width:100%; height:22px; background:url(../images/right_top_bj.jpg) repeat-x;}
+.user_manager p{background:url(../images/top_10.gif) no-repeat 10px center; text-align:left; padding-left:40px; line-height:22px; color:#08448A; font-weight:bold;}
+
+.main_bottom{width:100%; height:auto; text-align:center;}
+#fenye{ margin-top:10px;}
+
+
+/**************************ks******************************/
+#ks{width:100%; height:auto; text-align:center; margin:0 auto;}
+.ks_top{width:100%; height:22px; background:url(../images/right_top_bj.jpg) repeat-x;}
+.ks_top p{background:url(../images/037.gif) no-repeat 10px center; text-align:left; padding-left:40px; line-height:22px; color:#08448A; font-weight:bold;}
+.manager_exam p{background:url(../images/001.gif) no-repeat 10px center; text-align:left; padding-left:40px; line-height:22px; color:#08448A; font-weight:bold;}
+.ks_bottom{width:100%; height:auto; text-align:center;margin-top:5px;}
+.ti{width:100%; height:auto; border-bottom:solid 1px #B1DE83;}
+.ti p{text-align:left; padding-left:15px; line-height:25px;}
+
+
+

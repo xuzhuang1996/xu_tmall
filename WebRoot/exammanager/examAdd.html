@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Insert title here</title>
+		<title>Insert title here</title>
+		<link href="../style/style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body style="overflow: scroll; overflow-y: hidden">
+		<div>
+
+			<div id="right">
+				<!--right_top-->
+				<div class="right_top">
+					<p>
+						试题添加
+					</p>
+				</div>
+				<div class="right_bottom" style="border: 0px solid red;">
+
+					<!--baise-->
+					<div class="baise" >
+
+						<form id="form1" name="form1" method="post"
+							action="/ExamManagement/QuestionAddServlet"><!--在这里添加表单跳转的后台servlet处理类,负责接收表单提交的数据，以及jdbc处理数据库-->
+							<input type="hidden" name="command" value="add">
+							<table width="10%" class="table" cellspacing="1"
+								style="background: #FFFFFF; font-size: 12px;  margin: 0 auto; border: 0;">
+							
+								
+								<tr style="background: #FFFFFF; border: 0;">
+									<td nowrap="nowrap" height="30" align="right" width="46%">
+										<span style="font-weight: bold; color: #296DB8;">题目 :</span>
+									</td>
+									<td width="54%" style="text-align: left; padding-left: 10px;">
+										<textarea name="title" cols="100">He has a____habit of biting his lips lips when he is puzzled.</textarea>
+
+									</td>
+								</tr>
+								
+								<tr
+									style="background: #FFFFFF; border: 1; margin-top: 10px; height: 25px;">
+									<td style="width: ;" align="right">
+										<span style="font-weight: bold; color: #296DB8;">A,</span>
+									</td>
+									<td style="text-align: left; padding-left: 10px;"><!--将name属性改为optionA-->
+										<input id="option1" name="optionA" type="text" maxlength="20"
+											style="width: 800px; padding-left: 5px; border: none; border: solid 1px #C4D0CC;"
+											value="partcular" />
+									</td>
+
+								</tr>
+
+								<tr
+									style="background: #FFFFFF; border: 0; margin-top: 10px; height: 25px;">
+									<td style="width: ;" align="right">
+										<span style="font-weight: bold; color: #296DB8;">B,</span>
+									</td>
+									<td style="text-align: left; padding-left: 10px;"><!--将name属性改为optionA-->
+										<input id="option2" name="optionB" type="text" maxlength="20"
+											style="width: 800px; padding-left: 5px; border: none; border: solid 1px #C4D0CC;"
+											value="specific" />
+									</td>
+								</tr>
+
+								<tr
+									style="background: #FFFFFF; border: 0; margin-top: 10px; height: 25px;">
+									<td align="right">
+										<span style="font-weight: bold; color: #296DB8;">C,</span>
+									</td>
+									<td style="text-align: left; padding-left: 10px;"><!--将name属性改为optionA-->
+										<input id="option3" name="optionC" type="text" maxlength="20"
+											style="width: 800px; padding-left: 5px; border: none; border: solid 1px #C4D0CC;"
+											value="peculiar" />
+									</td>
+								</tr>
+								<tr
+									style="background: #FFFFFF; border: 0; margin-top: 10px; height: 25px;">
+
+									<td height="20" align="right">
+										<span style="font-weight: bold; color: #296DB8;">D,</span>
+									</td>
+									<td style="text-align: left; padding-left: 10px;"><!--将name属性改为optionA-->
+										<input name="optionD" type="text" id="option4"
+											style="width: 800px; padding-left: 5px; border: none; border: solid 1px #C4D0CC;"
+											value="general" size="300" maxlength="200" />
+									</td>
+								</tr>
+
+								<tr
+									style="background: #FFFFFF; border: 0; margin-top: 10px; height: 25px;">
+									<td height="112" align="right">
+
+									</td>
+									<td align="center" valign="middle"
+										style="text-align: left; padding-left: 10px;">
+										<p>
+											<span style="font-weight: bold; color: #296DB8;">请选择正确答案：</span>
+										</p>
+										<p>
+											&nbsp;
+										</p>
+
+										<p style="padding-left: 20px">
+
+											<input type="radio" name="answer" value="A"
+												id="RadioGroup1_0" />
+											A
+
+											<input type="radio" name="answer" value="B"
+												id="RadioGroup1_1" />
+											B
+
+											<input type="radio" name="answer" value="C"
+												id="RadioGroup1_2" />
+											C
+
+											<input type="radio" name="answer" value="D"
+												id="RadioGroup1_3" />
+											D
+										</p>
+
+										<p>
+											&nbsp;
+										</p>
+										<p>
+									
+
+											
+											<input name="input" value="清除" type="reset"
+												style="background: none; border: none; width: 70px; height: 23px; background: url(../images/button.jpg) no-repeat; color: #FFFFFF; font-size: 14px;"
+												 />
+										    <!--将确定按钮改为提交，submit-->
+											<input name="input" value="确定" type="submit"
+												style="background: none; border: none; width: 70px; height: 23px; background: url(../images/button.jpg) no-repeat; color: #FFFFFF; font-size: 14px;"
+												 />
+											<br />
+										</p>
+
+										<div></div>
+									</td>
+								</tr>
+
+							</table>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		</div>
+		</div>
+	</body>
+</html>

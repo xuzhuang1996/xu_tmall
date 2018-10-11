@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Insert title here</title>
+		<title>Insert title here</title>
+		<link href="../style/style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body style="overflow: scroll; overflow-y: hidden">
+		<div>
+			<!--ks 59616911-->
+			<script>
+
+				window.onload = countTime;
+				var timeLeft = 1 * 60 * 1000;
+				function countTime() {
+					var startMinutes = parseInt(timeLeft / (60 * 1000), 10);
+					var startSec = parseInt((timeLeft - startMinutes * 60 * 1000) / 1000);
+					document.getElementById('time').innerHTML = "剩余时间： " + startMinutes + "分钟 "
+							+ startSec + "秒 ";
+					timeLeft = timeLeft - 1000;
+					var t = setTimeout('countTime() ', 1000);
+				
+					if (timeLeft == 0) {
+						alert("时间到，点击交卷");
+						document.getElementsByName("examsItem")[0].submit();
+				
+					}
+				}
+			</script>
+			<div id="ks">
+				<!--ks_top-->
+				<div class="ks_top">
+					<p>
+						考试
+						<span id='time' style="color: red; padding-left: 600px"></span>
+					</p>
+
+				</div>
+
+
+				<!--ks_bottom-->
+				<div class="ks_bottom">
+					<div class="ti"
+						>
+						<form name="examsItem"
+							action="" method="post">
+
+							<input type="hidden" name="itemSize" value="8">
+
+							<p>
+								<span style="font-weight: bold; color: #296DB8;">1、</span> He
+								has a____habit of biting his lips lips when he is puzzled.
+							</p>
+							<input type="hidden" name="id0" value="36">
+							<p>
+
+
+								<div align="left" id="ispan0"
+									style="padding-left: 31px; font-weight: bold;">
+									<input onclick="changeRadio0(this)" type="radio" name="option0"
+										value="A" id="a0">
+										<span> A、partcular</span>
+									<br>
+									<br>
+									<input onclick="javascript:void(0)" type="radio" name="option0"
+										value="B" id="b0">
+										<span> B、specific</span>
+
+									<br>
+									<br>
+									<input onclick="javascript:void(0)" type="radio" name="option0"
+										value="C" id="c0">
+										<span> C、peculiar</span>
+									<br>
+									<br>
+									<input onclick="javascript:void(0)" type="radio" name="option0"
+										value="D" id="d0">
+										<span> D、general</span>
+								</div>
+							</p>
+							<p>
+								<span style="font-weight: bold; color: #296DB8;">2、</span> He
+								has a____habit of biting his lips lips when he is puzzled.
+							</p>
+							<input type="hidden" name="id1" value="37">
+							<p>
+
+
+								<div align="left" id="ispan1"
+									style="padding-left: 31px; font-weight: bold;">
+									<input onclick="javascript:void(0)" type="radio" name="option1"
+										value="A" id="a1">
+										<span> A、partcular</span>
+
+									<br>
+									<br>
+									<input onclick="javascript:void(0)" type="radio" name="option1"
+										value="B" id="b1">
+									<label for="b1">
+										<span> B、specific</span>
+									</label>
+									<br>
+									<br>
+									<input onclick="javascript:void(0)" type="radio" name="option1"
+										value="C" id="c1">
+									<label for="c1">
+										<span> C、peculiar</span>
+									</label>
+									<br>
+									<br>
+									<input onclick="javascript:void(0)" type="radio" name="option1"
+										value="D" id="d1">
+									<label for="d1">
+										<span> D、general</span>
+									</label>
+
+								</div>
+							</p>
+							
+							<input type="button" value="交     卷" onclick="document.location.href='./examsScore.html'">
+						</form>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+		</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,24 @@
+td {
+	font-size:12px;
+	color: #000;
+	text-decoration: none
+	}
+BODY {
+	 border: solid 1px #ccc;
+	 margin-top: 0px; 
+	 margin-left: 0px;
+	 margin-right: 0px; 
+	 margin-bottom: 0px;
+	 SCROLLBAR-FACE-COLOR: #1c7b75; 
+	 SCROLLBAR-HIGHLIGHT-COLOR: #fff; 
+	 SCROLLBAR-SHADOW-COLOR: #65919F; 
+	 SCROLLBAR-3DLIGHT-COLOR: #84A8B5;  
+	 SCROLLBAR-ARROW-COLOR: #1D3C4E; 
+	 SCROLLBAR-TRACK-COLOR:  #EBF3FC; 
+	 SCROLLBAR-DARKSHADOW-COLOR: #4B6C77;
+	 background-color: White;
+}
+a:link{color:1D3C4E;text-decoration: none}
+a:visited{color:204A63;text-decoration: none}
+a:hover{color:1D3C4E;text-decoration: underline}
+a.new:link,a.new:visited{color:FF6600;line-height:150%; text-decoration: none}
