@@ -38,7 +38,7 @@ public class QuestionAddServlet extends HttpServlet {
 		questionA.add(question);
 		//在添加试题的表单提交数据后，就应该跳转到servlet页面中，而页面中的内容，则由servlet的response来写入
 		//这里的QuestionQueryServlet路径其实是人为定义的，就是web.xml中人为定义的，不一定非要与servlet名字相同
-		request.getRequestDispatcher("QuestionQueryServlet").forward(request, response);;
+		request.getRequestDispatcher("QuestionQueryServlet").forward(request, response);
 		//response.getOutputStream().write("试题添加成功".getBytes());
 	}
 

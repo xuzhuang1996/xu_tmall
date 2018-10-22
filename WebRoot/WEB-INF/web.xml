@@ -9,6 +9,11 @@
     <servlet-name>QuestionQueryServlet</servlet-name>
     <servlet-class>control.QuestionQueryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>QuestionAddForAjax</servlet-name>
+    <servlet-class>control.QuestionAddForAjax</servlet-class>
+  </servlet>
+
 
 
   <servlet-mapping>
@@ -18,6 +23,10 @@
   <servlet-mapping>
     <servlet-name>QuestionQueryServlet</servlet-name>
     <url-pattern>/QuestionQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuestionAddForAjax</servlet-name>
+    <url-pattern>/QuestionAddForAjax</url-pattern>
   </servlet-mapping>
   
 </web-app>

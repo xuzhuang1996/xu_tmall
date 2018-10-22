@@ -1,6 +1,7 @@
 package mydb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,5 +39,16 @@ public class QuestionAction {
 	//用于查询统计数据，后续有需要可以更改查询条件
 	public int count(){
 		return questionDAOI.countOfquestion();
+	}
+	//是否存在某一重复字段的值，这里题目是否重复
+	public List<Question> getAllTitle(String title){
+		List<Map<String, Object>> Myparams = new ArrayList<Map<String,Object>>();
+		Map<String,Object> Myparam = new HashMap<String,Object>();
+		Myparam.put("name", "title");
+		Myparam.put("rela", "=");
+		Myparam.put("value", "'"+title+"'");
+		Myparams.add(Myparam);
+		List<Question> questionList = questionDAOI.query(Myparams,"");
+		return questionList;
 	}
 }

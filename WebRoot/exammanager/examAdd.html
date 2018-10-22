@@ -7,6 +7,59 @@
 		<link href="../style/style.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body style="overflow: scroll; overflow-y: hidden">
+	<script>
+		    var XmlHttp;
+			//用户在编辑题目的时候，利用ajax来返回题目的提示信息
+			function getAjaxDetails(title){
+				//首先获得用户输入
+				//然后给服务器发送用户的内容，由于采用了ajax异步发送数据，需要使用一个xmlhttp对象
+				XmlHttp = createXmlHttp();
+				//给服务器发送数据
+				var url = "/ExamManagement/QuestionAddForAjax?title="+title;
+				//true表示js会在send()方法后继续执行，而不是等待服务器的相应
+				//这里的url只是用于保存发送的数据，并不一定要打开某个页面
+				XmlHttp.open("GET", url, true);
+				//XmlHttp绑定回调方法，在XmlHttp状态改变的时候调用，0-4为其状态，只关心4为完成，完成之后回调才有意义
+				XmlHttp.onreadystatechange=callback_title;
+				XmlHttp.send(null);//再get中已经发送了数据过去。不需要再次发送
+			}
+			
+			//获取XmlHttp对象
+			function createXmlHttp(){
+				var xmlHttp;
+				//对于大多数浏览器都支持的
+				if(window.XMLHttpRequest){//()不知道有没有
+					
+					xmlHttp= new XMLHttpRequest();
+				}
+				if (window.ActiveXObject){
+					xmlHttp= new ActiveXObject("Microsoft.XMLHTTP");
+					if(!xmlgttp){//支持ActiveXObject但没有XMLHTTP
+						xmlHttp = new ActiveXObject("Mxxml2.XMLHTTP");
+					}
+				}
+				return xmlHttp;
+			}
+			
+			function callback_title(){
+			    //4完成
+			    if(XmlHttp.readyState==4){
+			        //200成功，404资源未找到，500服务器内部错误
+			        if(XmlHttp.status==200){
+			            //交互成功，获得文本数据（json）
+			            var result = XmlHttp.responseText;
+			            //解析获得的数据
+			            //var json = eval("("+result+")");
+			            //将数据展示到页面
+			            setContent(result);//这里只返回字符串，因此不涉及json
+			        }
+			    }
+			}
+			function setContent(result){
+			    if(result!="")alert(result);
+			    
+			}
+		</script>
 		<div>
 
 			<div id="right">
@@ -33,7 +86,7 @@
 										<span style="font-weight: bold; color: #296DB8;">题目 :</span>
 									</td>
 									<td width="54%" style="text-align: left; padding-left: 10px;">
-										<textarea name="title" cols="100">He has a____habit of biting his lips lips when he is puzzled.</textarea>
+										<textarea name="title" cols="100" onchange="getAjaxDetails(this.value)"></textarea>
 
 									</td>
 								</tr>

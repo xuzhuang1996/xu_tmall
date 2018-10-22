@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <!-- 接着，在相应地方将question的相关内容添加到对应地方 -->
 						<c:forEach items="${requestScope.questionList}" var="question">
 						
-							<p>
+							<p id="xu_title">
 							    <!-- 先拿编号 -->
 								<span style="font-weight: bold; color: #296DB8;">${question.id}.${question.title}</span>
 	
