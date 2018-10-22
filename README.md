@@ -8,8 +8,12 @@ servlet版考试管理系统
 
 3.中途更改代码，可以自定义连接池：https://www.bilibili.com/video/av20052105/?p=6。 我选择c3p0.在xml中编写时需注意将&转义为‘&-a-m-p-;’（将-去掉，这个编辑器好像也将其转义了）    再就是拼写问题，将myelipse里面的spelling关闭就不会检查拼写问题了。。。。此外在重新使用数据库连接池后，依然遇到连接过多的问题。原因是GetC3p0DB.getConnection();只在初始化赋值，在关闭判断操作中未处理。在处理后，无论怎样连接都没问题了。
 
+4.给题目增加ajax，判断数据库中是否已存在该题目。在title的textarea下增加onchange事件，当textarea改变后，执行。将数据提交到addservletforajax类下进行添加试题处理那里，这里跟submit不同，submit是将所有name属性值下的数据提交，而ajax只是将我需要的title数据提交。提交后数据库查询，然后返回处理。为了不跟添加试题的servlet混淆，引起返回错误，选择新建了一个类
+
 需要改进：
 
 1.Question类是试题表，不应该放在myDB包下，应该放在myDB包下的实体entity包中，
 
 2./ExamManagement/QuestionQueryServlet这样的地址，在web.xml里面应该为自定义的，而不是跟servlet同名
+
+
