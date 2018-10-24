@@ -15,10 +15,12 @@
 				//然后给服务器发送用户的内容，由于采用了ajax异步发送数据，需要使用一个xmlhttp对象
 				XmlHttp = createXmlHttp();
 				//给服务器发送数据
-				var url = "/ExamManagement/QuestionAddForAjax?title="+title;
+				//var url = "/ExamManagement/QuestionAddForAjax?title="+title;
+				var url = "/ExamManagement/QuestionAddServlet?title="+title;
 				//true表示js会在send()方法后继续执行，而不是等待服务器的相应
 				//这里的url只是用于保存发送的数据，并不一定要打开某个页面
 				XmlHttp.open("GET", url, true);
+				XmlHttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 				//XmlHttp绑定回调方法，在XmlHttp状态改变的时候调用，0-4为其状态，只关心4为完成，完成之后回调才有意义
 				XmlHttp.onreadystatechange=callback_title;
 				XmlHttp.send(null);//再get中已经发送了数据过去。不需要再次发送

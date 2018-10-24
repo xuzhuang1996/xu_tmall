@@ -13,9 +13,6 @@
     <servlet-name>QuestionAddForAjax</servlet-name>
     <servlet-class>control.QuestionAddForAjax</servlet-class>
   </servlet>
-
-
-
   <servlet-mapping>
     <servlet-name>QuestionAddServlet</servlet-name>
     <url-pattern>/QuestionAddServlet</url-pattern>
@@ -28,5 +25,4 @@
     <servlet-name>QuestionAddForAjax</servlet-name>
     <url-pattern>/QuestionAddForAjax</url-pattern>
   </servlet-mapping>
-  
 </web-app>
