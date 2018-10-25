@@ -18,4 +18,6 @@ servlet版考试管理系统
 
 2./ExamManagement/QuestionQueryServlet这样的地址，在web.xml里面应该为自定义的，而不是跟servlet同名，建议比如试题用成/ExamManagement/question/QuestionQueryServlet,用question来分别。
 
+3.由于试题中title不可能相同，因此可以考虑在删除的时候选择以title为关键字而并不是id，题目的编号会因为删除而改变，而id不会，所以导致不友好。
+
 
