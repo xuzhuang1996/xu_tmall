@@ -10,10 +10,12 @@ servlet版考试管理系统
 
 4.给题目增加ajax，判断数据库中是否已存在该题目。在title的textarea下增加onchange事件，当textarea改变后，执行。将数据用过滤器来过滤，如果是ajax则只进行判断是否存在，如果不是ajax请求，就继续下去。这里跟submit不同，submit是将所有name属性值下的数据提交，而ajax只是将我需要的title数据提交。提交后数据库查询，然后返回处理。BUG：ajax那块，由于发送给过滤器的X-Requested-With值一直为空（不知道为啥），选择在xmlHttp的open函数之后添加这句XmlHttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");。人为给这个请求对象添加请求头数据，用于过滤器的判断。
 
+5.试题删除，由于之前在试题查询那边，试题的显示中，试题的ID就是题号，因此这里删除可以直接根据ID来删除。
+
 需要改进：
 
 1.Question类是试题表，不应该放在myDB包下，应该放在myDB包下的实体entity包中，
 
-2./ExamManagement/QuestionQueryServlet这样的地址，在web.xml里面应该为自定义的，而不是跟servlet同名
+2./ExamManagement/QuestionQueryServlet这样的地址，在web.xml里面应该为自定义的，而不是跟servlet同名，建议比如试题用成/ExamManagement/question/QuestionQueryServlet,用question来分别。
 
 
