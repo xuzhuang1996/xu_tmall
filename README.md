@@ -12,7 +12,7 @@ servlet版考试管理系统
 
 5.试题删除，由于之前在试题查询那边，试题的显示中，试题的ID就是题号，因此这里删除可以直接根据ID来删除。
 
-6.试题编辑，在这个里面选择使用title来进行编辑。新建一个examEdit.jsp，将examEdit.html复制进去。在数据库中获得对应的题目后请求转发到这个jsp页面。中途遇到了jsp无法加载图片的问题，选择：<img src="${pageContext.request.contextPath}/images/logo.png" alt="student" title="student">解决。另外加号等特殊符号的解决，（input里面主要是通过name属性在request中取值）如果是jsp到servlet将出现中文乱码问题，request.setCharacterEncoding("UTF-8");//解决中文乱码，如果是html到servlet则没有中文乱码。是否html还是jsp，主要是html只传递参数，而jsp接收servlet的参数。更新建议通过id来操作。
+6.试题编辑。新建一个examEdit.jsp，将examEdit.html复制进去。在数据库中获得对应的题目后请求转发到这个jsp页面。中途遇到了jsp无法加载图片的问题，选择：<img src="${pageContext.request.contextPath}/images/logo.png" alt="student" title="student">解决。另外加号等特殊符号的解决，（input里面主要是通过name属性在request中取值）如果是jsp到servlet将出现中文乱码问题，request.setCharacterEncoding("UTF-8");//解决中文乱码，如果是html到servlet则没有中文乱码。是否html还是jsp，主要是html只传递参数，而jsp接收servlet的参数。更新通过id来操作。在jsp中得到id，传给servlet。进行处理后更新即可。
 
 需要改进：
 
