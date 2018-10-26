@@ -17,6 +17,15 @@ public class QuestionAction {
 			questionDAOI.Insert(question);
 		}
 	}
+	
+	public int delete(int id){
+		return questionDAOI.Delete(id);
+	}
+	
+	public int update(Question question){
+		return questionDAOI.Update(question);
+	}
+	
 	//这个函数需要自己定义了，根据DAO的标准操作方式，来实现自己的查询。由于这里查询了所有数据，因此这里查询参数可以不写
 	public List<Question> queryAll(){
 		List<Map<String, Object>> Myparams = new ArrayList<Map<String,Object>>();

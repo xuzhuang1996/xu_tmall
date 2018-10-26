@@ -66,13 +66,56 @@ public class QuestionDAOImp implements QuestionDAO {
 
 	@Override
 	public int Delete(int id) {
-		// TODO Auto-generated method stub
+		try {
+			if(conn.isClosed())conn=GetC3p0DB.getConnection();
+			System.out.println("delete-conn-query");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		QueryRunner qr = new QueryRunner();
+		try {
+			int reslut = qr.update(conn, "delete from exam_questions WHERE id = ?", id);
+			return reslut;//由于finally最终会执行后再返回这个数字，因此可以这样写
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				DbUtils.close(conn);
+				System.out.println("delete-conn-close");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return 0;
 	}
 
 	@Override
 	public int Update(Question question) {
-		// TODO Auto-generated method stub
+		try {
+			if(conn.isClosed())conn=GetC3p0DB.getConnection();
+			System.out.println("update-conn-query");
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		QueryRunner qr = new QueryRunner();
+		try {
+			//因为懒，没有更新其他地方
+			int reslut = qr.update(conn, "UPDATE exam_questions set title=? WHERE id=?", question.getTitle(), question.getId());
+			return reslut;//由于finally最终会执行后再返回这个数字，因此可以这样写
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				DbUtils.close(conn);
+				System.out.println("update-conn-close");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 		return 0;
 	}
 

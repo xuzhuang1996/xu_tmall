@@ -13,6 +13,21 @@
     <servlet-name>QuestionAddForAjax</servlet-name>
     <servlet-class>control.QuestionAddForAjax</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>QuestionDeleteServlet</servlet-name>
+    <servlet-class>control.QuestionDeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>QuestionEditServlet</servlet-name>
+    <servlet-class>control.QuestionEditServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>QuestionUpdateServlet</servlet-name>
+    <servlet-class>control.QuestionUpdateServlet</servlet-class>
+  </servlet>
+
+
+
   <servlet-mapping>
     <servlet-name>QuestionAddServlet</servlet-name>
     <url-pattern>/QuestionAddServlet</url-pattern>
@@ -24,5 +39,17 @@
   <servlet-mapping>
     <servlet-name>QuestionAddForAjax</servlet-name>
     <url-pattern>/QuestionAddForAjax</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuestionDeleteServlet</servlet-name>
+    <url-pattern>/QuestionDeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuestionEditServlet</servlet-name>
+    <url-pattern>/QuestionEditServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QuestionUpdateServlet</servlet-name>
+    <url-pattern>/QuestionUpdateServlet</url-pattern>
   </servlet-mapping>
 </web-app>

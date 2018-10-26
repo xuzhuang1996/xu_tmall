@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    if(result>${requestScope.totalPage} || result<1)return;
 			    window.location.href = "/ExamManagement/QuestionQueryServlet?pageIndex="+result;
 			}
+			
 		</script>
 
 	</head>
@@ -58,17 +59,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										style="font-weight: bold; padding-left: 120px">C、${question.optionC}</span>
 									<span name="option"
 										style="font-weight: bold; padding-left: 120px">D、${question.optionD}</span>
-	
 								</div>
 							</p>
 							<p style="padding-left: 36px">
 								(答案是:&nbsp;
 								<span id="an3" style="font-weight: bold; color: #F80015;">${question.answer}</span>&nbsp;)&nbsp;&nbsp;&nbsp;[
 	
-								<a href="./examEdit.html"><span
+								<a href="/ExamManagement/QuestionEditServlet?title=${question.title}"><span
 									style="color: #FF8005;">编辑</span>
 								</a>&nbsp;&nbsp;
-								<a href = "#" onclick="delbtn()"><span
+								<!-- 前面在试题管理页面进来的时候就请求，得到了内容后给每一个question变量赋值，每一个都有自己的id -->
+								<a href = "/ExamManagement/QuestionDeleteServlet?id=${question.id}" ><span
 									style="color: #FF8005;">删除</span>
 								</a>]
 							</p>
