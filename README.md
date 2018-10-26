@@ -10,10 +10,16 @@ servlet版考试管理系统
 
 4.给题目增加ajax，判断数据库中是否已存在该题目。在title的textarea下增加onchange事件，当textarea改变后，执行。将数据用过滤器来过滤，如果是ajax则只进行判断是否存在，如果不是ajax请求，就继续下去。这里跟submit不同，submit是将所有name属性值下的数据提交，而ajax只是将我需要的title数据提交。提交后数据库查询，然后返回处理。BUG：ajax那块，由于发送给过滤器的X-Requested-With值一直为空（不知道为啥），选择在xmlHttp的open函数之后添加这句XmlHttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");。人为给这个请求对象添加请求头数据，用于过滤器的判断。
 
+5.试题删除，由于之前在试题查询那边，试题的显示中，试题的ID就是题号，因此这里删除可以直接根据ID来删除。
+
+6.试题编辑。新建一个examEdit.jsp，将examEdit.html复制进去。在数据库中获得对应的题目后请求转发到这个jsp页面。中途遇到了jsp无法加载图片的问题，选择：<img src="${pageContext.request.contextPath}/images/logo.png" alt="student" title="student">解决。另外加号等特殊符号的解决，（input里面主要是通过name属性在request中取值）如果是jsp到servlet将出现中文乱码问题，request.setCharacterEncoding("UTF-8");//解决中文乱码，如果是html到servlet则没有中文乱码。是否html还是jsp，主要是html只传递参数，而jsp接收servlet的参数。更新通过id来操作。在jsp中得到id，传给servlet。进行处理后更新即可。
+
 需要改进：
 
 1.Question类是试题表，不应该放在myDB包下，应该放在myDB包下的实体entity包中，
 
-2./ExamManagement/QuestionQueryServlet这样的地址，在web.xml里面应该为自定义的，而不是跟servlet同名
+2./ExamManagement/QuestionQueryServlet这样的地址，在web.xml里面应该为自定义的，而不是跟servlet同名，建议比如试题用成/ExamManagement/question/QuestionQueryServlet,用question来分别。
+
+3.由于试题中title不可能相同，因此可以考虑在删除的时候选择以title为关键字而并不是id，题目的编号会因为删除而改变，而id不会，所以导致不友好。
 
 

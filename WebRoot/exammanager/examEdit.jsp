@@ -32,8 +32,6 @@
 							<input type="hidden" name="id" value=${requestScope.question.id }>
 							<table width="10%" class="table" cellspacing="1"
 								style="background: #FFFFFF; font-size: 12px;  margin: 0 auto; border: 0;">
-								
-								
 								<tr style="background: #FFFFFF; border: 0;">
 									<td nowrap="nowrap" height="30" align="right" width="46%">
 										<span style="font-weight: bold; color: #296DB8;">题目 :</span>
