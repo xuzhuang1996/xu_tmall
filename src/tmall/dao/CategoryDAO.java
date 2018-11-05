@@ -1,4 +1,4 @@
-package tamll.dao;
+package tmall.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
