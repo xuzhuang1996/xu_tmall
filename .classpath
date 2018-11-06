@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="D:/Users/wd/eclipse-workspace/xu_tmall/bin/c3p0-0.9.5.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="D:/Users/wd/eclipse-workspace/xu_tmall/bin/c3p0-oracle-thin-extras-0.9.5.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/Users/wd/eclipse-workspace/xu_tmall/bin/commons-dbutils-1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="D:/Users/wd/eclipse-workspace/xu_tmall/bin/commons-dbutils-1.7.jar" sourcepath="D:/Users/wd/eclipse-workspace/ALLsource/commons-dbutils-1.7-src.zip"/>
 	<classpathentry exported="true" kind="lib" path="D:/Users/wd/eclipse-workspace/xu_tmall/bin/commons-dbutils-1.7-javadoc.jar"/>
 	<classpathentry exported="true" kind="lib" path="D:/Users/wd/eclipse-workspace/xu_tmall/bin/commons-dbutils-1.7-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="D:/Users/wd/eclipse-workspace/xu_tmall/bin/commons-dbutils-1.7-tests.jar"/>

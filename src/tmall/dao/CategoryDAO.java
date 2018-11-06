@@ -1,12 +1,11 @@
 package tmall.dao;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -43,21 +42,25 @@ public class CategoryDAO {
         return beans;
     }
 	
-	
 	//===============================下面是基本操作==========================================================================
-	//这个操作没有使用DbUtils，由于插入后还要取出ID。
+	//这个操作使用DbUtils，由于插入后还要取出ID。
 	public void add(Category bean) {
 		String sql = "insert into category values(null,?)";
 		//Java7 新特性: try-with-resources
-        try (Connection conn = GetC3p0DB.getConnection(); PreparedStatement ps = conn.prepareStatement(sql);) {
-        	ps.setString(1, bean.getName());
-            ps.execute();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-            	//因为在插入这个数据之后，在业务上有可能会马上需要用到他的id
-                int id = rs.getInt(1);
-                bean.setId(id);
-            }
+        try (Connection conn = GetC3p0DB.getConnection();) {
+        	QueryRunner qr = new QueryRunner();
+        	qr.update(conn , sql , bean.getName());
+        	//是线程安全
+        	String id = ( qr.query(conn, "SELECT LAST_INSERT_ID()", new ScalarHandler<>())).toString();               
+        	bean.setId(Integer.valueOf(id));
+//        	ps.setString(1, bean.getName());
+//            ps.execute();
+//            ResultSet rs = ps.getGeneratedKeys();
+//            if (rs.next()) {
+//            	//因为在插入这个数据之后，在业务上有可能会马上需要用到他的id
+//                int id = rs.getInt(1);
+//                bean.setId(id);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +94,8 @@ public class CategoryDAO {
         try (Connection conn = GetC3p0DB.getConnection();) {
             String sql = "select * from Category where id = " + id;
             QueryRunner qr = new QueryRunner();
-            bean = qr.query(conn,sql, new BeanListHandler<Category>(Category.class)).get(0);
+            //bean = qr.query(conn,sql, new BeanListHandler<Category>(Category.class)).get(0);
+            bean = qr.query(conn,sql, new BeanHandler<Category>(Category.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
