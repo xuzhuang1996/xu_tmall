@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/c3p0-0.9.5.2.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/c3p0-oracle-thin-extras-0.9.5.2.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/commons-dbutils-1.7.jar" sourcepath="D:/Users/wd/eclipse-workspace/ALLsource/commons-dbutils-1.7-src.zip"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/commons-dbutils-1.7-javadoc.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/commons-dbutils-1.7-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/commons-dbutils-1.7-tests.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/commons-dbutils-1.7-test-sources.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/jstl.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/mchange-commons-java-0.2.11.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/mysql-connector-java-8.0.12.jar"/>
+	<classpathentry kind="lib" path="D:/Users/wd/eclipse-workspace/jar/standard.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
