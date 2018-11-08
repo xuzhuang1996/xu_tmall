@@ -141,7 +141,7 @@ public class UserDAO {
 		List<User> result = null;
 		StringBuilder sql=new StringBuilder();
 		//1=1是为了跟and一起用。不然where没地方放，如果集合不存在，直接执行下面语句也可以
-		sql.append("select * from exam_questions where 1=1 ");
+		sql.append("select * from user where 1=1 ");
 		if(params!=null&&params.size()>0){
 			for (int i = 0; i < params.size(); i++) {
 				Map<String, Object> map=params.get(i);

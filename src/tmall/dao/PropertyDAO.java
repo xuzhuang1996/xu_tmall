@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import tmall.bean.Property;
 import tmall.mydb.GetC3p0DB;
 import tmall.xu_util.PropertyHandler;
+import tmall.xu_util.PropertyListHandler;
 
 public class PropertyDAO {
-	
+	//是因为要对某个分类下的属性进行分页，所以要看这个 分类下的属性总数啦
 	public int getTotal(int cid) {
         int total = 0;
         try (Connection conn = GetC3p0DB.getConnection();) {
@@ -40,7 +40,9 @@ public class PropertyDAO {
   
         try (Connection conn = GetC3p0DB.getConnection();) {
         	QueryRunner qr = new QueryRunner();
-            beans = qr.query(conn,sql,new BeanListHandler<Property>(Property.class) ,cid , start, count);
+        	//既然是查询，应该也使用自定义的。
+        	beans = qr.query(conn,sql,new PropertyListHandler() ,cid , start, count);
+            //beans = qr.query(conn,sql,new BeanListHandler<Property>(Property.class) ,cid , start, count);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e1) {
