@@ -38,8 +38,10 @@ public class Test {
 //			System.out.println(":"+pp.get(i).getProperty().getName()+":"+pp.get(i).getValue());
 //		}
 		
-		PropertyValueDAO p = new PropertyValueDAO();
-		System.out.println(p.get(113, 484).getValue());
+//		PropertyValueDAO p = new PropertyValueDAO();
+//		System.out.println(p.get(113, 484).getValue());
+		
+		
 	}
 
 }
