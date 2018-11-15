@@ -137,7 +137,7 @@ public class UserDAO {
     }
 	
 	//用于查询,如果不写action层，就直接在里面做了
-	private List<User> query(List<Map<String, Object>> params) {
+	public List<User> query(List<Map<String, Object>> params) {
 		List<User> result = null;
 		StringBuilder sql=new StringBuilder();
 		//1=1是为了跟and一起用。不然where没地方放，如果集合不存在，直接执行下面语句也可以
