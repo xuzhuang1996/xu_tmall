@@ -33,7 +33,11 @@ jsp+servlet模仿天猫,来自http://how2j.cn。
 - 表单 action 属性应该设置为在后端服务器上处理文件上传的 Servlet 文件。
 - 上传单个文件，您应该使用单个带有属性 type="file" 的 <input .../> 标签。为了允许多个文件上传，请包含多个 name 属性值不同的 input 标签。输入标签具有不同的名称属性的值。浏览器会为每个 input 标签关联一个浏览按钮
 利用servlet将文件处理成输入流以后，在add方法中将字段保存数据库，将输入流保存为jpg至本地文件目录。   
-流程就是：jsp发送数据action="admin_category_add"，过滤器拦截admin_category_add，request获取method为add，转到分类的servlet下，
+
+
+**流程就是**     
+
+jsp发送数据action="admin_category_add"，过滤器拦截admin_category_add，request获取method为add，转到分类的servlet下，
 执行继承过来的service，执行add方法后返回@admin_category_list，由redirectStartWithCase函数进行地址重定向。转向admin_category_list，又是一波过滤器servlet的处理进入listcategory.jsp
 (注意，每一次重定向，之前的request参数就没有了。)
 
