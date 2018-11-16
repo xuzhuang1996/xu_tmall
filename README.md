@@ -26,3 +26,4 @@ jsp+servlet模仿天猫,来自http://how2j.cn。
 - 对于adminPage.jsp这个文件，好好理解分页。上下2个是处理上页下页的按钮，中间那个，adminPage_complete.jsp做了处理，就是页数太多的处理
 
 
+
