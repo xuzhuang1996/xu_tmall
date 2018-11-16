@@ -1,7 +1,7 @@
 # xu_tmall
 jsp+servlet模仿天猫,来自http://how2j.cn。
 
-一、数据库部分
+# 一、数据库部分
 
 1.首先建表，没有外键的表需要先建：User,Category。   、
 
@@ -21,6 +21,7 @@ jsp+servlet模仿天猫,来自http://how2j.cn。
 - （在MySQL被删除的情况下重装，注册表啥的都没了，但还是装不了，显示缺文件。缺C++2015啥的，下载地址为https://www.microsoft.com/en-us/download/details.aspx?id=53587） 。
 - （不打算创建service层，即使dao层比较臃肿，时间不够。因此分页查询就使用原来的，不改）
 
+# 二、后台部分
 4.开始写servlet，由于是普通Java项目，为了调试我将其转为动态项目。http://how2j.cn/k/servlet/servlet-switch/1346.html 。然后将webroot下的bin放进相应位置，不然servlet没法创建。  
 
 - 新建基类BaseBackServlet，重写了servlet的service方法，有时候也会直接重写service()方法，在其中提供相应的服务，就不用区分到底是get还是post了，没有源码中判断的过程，后面的继承它后直接进入service方法了。理解后写CategoryServlet，根据客户端发送的数据进行处理后，进行页面跳转。之后开始写listCategory.jsp。现在测试：首先浏览器地址为http://localhost:8080/xu_tmall/admin_Category_list ，表示请求categoryservlet的list方法。跳转到servlet处理。处理后将List<Category> cs得到的目录数据传到相应jsp页面。页面就可以显示了。（这里eclipse发布到Tomcat的时候不是以外面的文件夹发布的，而是以当前打开项目中的文件来发布，也就是中途加了一些文件后要及时刷新，不然Tomcat对应的webapps下面找不到相应文件）
@@ -32,11 +33,9 @@ jsp+servlet模仿天猫,来自http://how2j.cn。
 - 表单 enctype 属性应该设置为 multipart/form-data.，表示提交的数据是二进制文件
 - 表单 action 属性应该设置为在后端服务器上处理文件上传的 Servlet 文件。
 - 上传单个文件，您应该使用单个带有属性 type="file" 的 <input .../> 标签。为了允许多个文件上传，请包含多个 name 属性值不同的 input 标签。输入标签具有不同的名称属性的值。浏览器会为每个 input 标签关联一个浏览按钮
-利用servlet将文件处理成输入流以后，在add方法中将字段保存数据库，将输入流保存为jpg至本地文件目录。   
+利用servlet将文件处理成输入流以后，在add方法中将字段保存数据库，将输入流保存为jpg至本地文件目录。  
 
-
-**流程就是**     
-
+**流程就是**
 jsp发送数据action="admin_category_add"，过滤器拦截admin_category_add，request获取method为add，转到分类的servlet下，
 执行继承过来的service，执行add方法后返回@admin_category_list，由redirectStartWithCase函数进行地址重定向。转向admin_category_list，又是一波过滤器servlet的处理进入listcategory.jsp
 (注意，每一次重定向，之前的request参数就没有了。)
