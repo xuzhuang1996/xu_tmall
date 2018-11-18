@@ -41,4 +41,9 @@ jsp发送数据action="admin_category_add"，过滤器拦截admin_category_add�
 执行继承过来的service，执行add方法后返回@admin_category_list，由redirectStartWithCase函数进行地址重定向。转向admin_category_list，又是一波过滤器servlet的处理进入listcategory.jsp
 (注意，每一次重定向，之前的request参数就没有了。)  
 &ensp;&ensp;&ensp;&ensp;6.分类删除。listcategory.jsp里面删除按钮，点击后返回confirm("确认要删除")方法的窗口，再次点击确认删除，自动进入a之前的href，否则不进入（不知道怎么实现的）。此时，过滤器处理，到service方法下，获取delete方法，到CategoryServlet的delete方法下，根据request带过来的参数id执行DAO。（删除之后选择客户端的重定向跳转，如果使用服务端跳转的话，在跳转时候，用户也许会习惯性的F5刷新页面，那么这个时候提交的路径是删除，去删除一条不存在的数据）  
-&ensp;&ensp;&ensp;&ensp;7.分类的修改。'改'这个操作，分成了2个函数来完成，一个函数用来进入到对应分类下的edit.jsp，一个函数用于更新。（editcategory.jsp的c.name可以改成requestScope.c.name这样看起来传值明白一点）最后就是，更改图片后谷歌浏览器刷新没反应，按ctrl+f5可以强制刷新，这样就可以看到效果。
+&ensp;&ensp;&ensp;&ensp;7.分类的修改。'改'这个操作，分成了2个函数来完成，一个函数用来进入到对应分类下的edit.jsp，一个函数用于更新。（editcategory.jsp的c.name可以改成requestScope.c.name这样看起来传值明白一点）最后就是，更改图片后谷歌浏览器刷新没反应，按ctrl+f5可以强制刷新，这样就可以看到效果。  
+&ensp;&ensp;&ensp;&ensp;8.属性的list。属性跟分类比，多了一个分页的时候按钮的参数。
+在进入list.jsp(这里是说所有的东西的list页面)的时候，通过page对象就把所有的页面信息数据传到adminPage.jsp了，所以那个分页按钮才有准确的按钮个数，现在需要在page对象那边传一个参数来确定cid的值，才能准确表示对应的分类下的具体页面的所有属性值。  
+&ensp;&ensp;&ensp;&ensp;9。属性的增加。需要注意，之前进入list的时候分类页面下有传一个cid，而这里没直接传。我觉得可以request传一个，但是之后重定向。不可。request.getParameter("cid")拿不到值。直接在地址栏加cid就好了。  另外中文乱码问题，在分类中由于是二进制什么的，所以不出现乱码。现在属性没有二进制读取，博主的过滤器不起作用，我的解决办法：name = new String (request.getParameter("name").getBytes ("iso-8859-1"), "UTF-8");不过估计要经常这样处理了  
+&ensp;&ensp;&ensp;&ensp;10.属性的删除。  
+&ensp;&ensp;&ensp;&ensp;10.属性的编辑。  

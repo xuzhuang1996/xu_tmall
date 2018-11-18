@@ -53,7 +53,7 @@ public abstract class BaseBackServlet extends HttpServlet{
     //其他servlet继承这个service方法后,
     public void service(HttpServletRequest request, HttpServletResponse response) {
         try {
-            // 获取分页信息，如果没有设置值，就会用上面初始化的0和5
+            // 获取分页信息，如果没有设置值，就会用上面初始化的0和5,就算报异常也忽略
             int start = 0;
             int count = 5;
             try {
