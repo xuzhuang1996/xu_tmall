@@ -53,9 +53,12 @@
 
         $(function () {
             $("a").click(function () {
+            	//在删除的链接按钮a下，自定义deleteLink属性，如果没有点击删除按钮，
+            	//这里对所有的a都这样处理了，但是不是每一个a都有deleteLink属性的。因此只有有这个属性的，才为true。
                 var deleteLink = $(this).attr("deleteLink");
-                console.log(deleteLink);
+                console.log(deleteLink);//其他的没有这个属性的，点击会打印undefined的
                 if ("true" === deleteLink) {
+                	//如果用户点击确定按钮，则 confirm() 返回 true。相当于alert，由用户点击。如果点击取消按钮，则 confirm() 返回 false
                     var confirmDelete = confirm("确认要删除");
                     return confirmDelete;
                 }

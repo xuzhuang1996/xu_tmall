@@ -37,14 +37,14 @@
                     <td>${c.id}</td>
                     <td><img height="40px" src="img/category/${c.id}.jpg"></td>
                     <td>${c.name}</td>
-                    <td><a href="admin_property_list?cid=${c.id}"><span
+                    <td><a href="admin_Property_list?cid=${c.id}"><span
                             class="glyphicon glyphicon-th-list"></span></a></td>
-                    <td><a href="admin_product_list?cid=${c.id}"><span
+                    <td><a href="admin_Product_list?cid=${c.id}"><span
                             class="glyphicon glyphicon-shopping-cart"></span></a></td>
-                    <td><a href="admin_category_edit?id=${c.id}"><span
+                    <td><a href="admin_Category_edit?id=${c.id}"><span
                             class="glyphicon glyphicon-edit"></span></a></td>
                     <td>
-                        <a deleteLink="true" href="admin_category_delete?id=${c.id}">
+                        <a deleteLink="true" href="admin_Category_delete?id=${c.id}">
                             <span class=" 	glyphicon glyphicon-trash">
                             </span>
                         </a>
@@ -62,7 +62,7 @@
     <div class="panel panel-warning addDiv">
         <div class="panel-heading">新增分类</div>
         <div class="panel-body">
-            <form method="post" id="addForm" action="admin_category_add"
+            <form method="post" id="addForm" action="admin_Category_add"
                   enctype="multipart/form-data">
                 <table class="addTable">
                     <tr>
