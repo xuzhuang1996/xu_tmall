@@ -1,6 +1,6 @@
 package tmall.servlet;
 
-import java.io.UnsupportedEncodingException;
+
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import tmall.bean.Category;
 import tmall.bean.Property;
 import tmall.xu_util.Page;
+import tmall.xu_util.XuEncodeUtil;
 
 @WebServlet("/PropertyServlet")
 public class PropertyServlet extends BaseBackServlet{
@@ -23,12 +24,7 @@ public class PropertyServlet extends BaseBackServlet{
 public String add(HttpServletRequest request, HttpServletResponse response, Page page) {
 	//前端传来name,cid.这里不一样在于，之前进入list的时候分类页面下有传一个cid，而这里没直接传。我觉得可以request传一个，但是之后重定向。不可
 	int cid = Integer.parseInt(request.getParameter("cid"));
-	String name="";
-	try {
-		name = new String (request.getParameter("name").getBytes ("iso-8859-1"), "UTF-8");
-	} catch (UnsupportedEncodingException e) {
-		e.printStackTrace();
-	}
+	String name=XuEncodeUtil.getNewString(request.getParameter("name"));
 	Category c = categoryDAO.get(cid);
 	Property p = new Property();
 	p.setCategory(c);
@@ -55,12 +51,7 @@ public String edit(HttpServletRequest request, HttpServletResponse response, Pag
 
 @Override
 public String update(HttpServletRequest request, HttpServletResponse response, Page page) {
-	String name="";
-	try {
-		name = new String (request.getParameter("name").getBytes ("iso-8859-1"), "UTF-8");
-	} catch (UnsupportedEncodingException e) {
-		e.printStackTrace();
-	}
+	String name=XuEncodeUtil.getNewString(request.getParameter("name"));
 	int cid = Integer.parseInt(request.getParameter("cid"));
 	int id = Integer.parseInt(request.getParameter("id"));
 	Property p =propertyDAO.get(id);

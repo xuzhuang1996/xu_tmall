@@ -22,8 +22,8 @@
 
 <div class="workingArea">
     <ol class="breadcrumb">
-        <li><a href="admin_category_list">所有分类</a></li>
-        <li><a href="admin_product_list?cid=${p.category.id}">${p.category.name}</a></li>
+        <li><a href="admin_Category_list">所有分类</a></li><!-- 因为符合bean，所以可以直接这个.访问？ -->
+        <li><a href="admin_Product_list?cid=${p.category.id}">${p.category.name}</a></li>
         <li class="active">${p.name}</li>
         <li class="active">编辑产品</li>
     </ol>
@@ -31,7 +31,7 @@
     <div class="panel panel-warning editDiv">
         <div class="panel-heading">编辑产品</div>
         <div class="panel-body">
-            <form method="post" id="editForm" action="admin_product_update">
+            <form method="post" id="editForm" action="admin_Product_update">
                 <table class="editTable">
                     <tr>
                         <td>产品名称</td>

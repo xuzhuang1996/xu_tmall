@@ -43,7 +43,9 @@
                 $("#" + id)[0].focus();
                 return false;
             }
-            if (parseInt(value) !== value) {
+			//之前博主使用的是!==，num 与 str类型不同 意味着其两者不等　非运算自然是true啦
+			//==是把str转换为数字，检查其是否相等。
+            if (parseInt(value) != value) {
                 alert(name + "必须是整数");
                 $("#" + id)[0].focus();
                 return false;
