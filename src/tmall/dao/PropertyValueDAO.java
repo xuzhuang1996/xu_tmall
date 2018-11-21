@@ -126,6 +126,19 @@ public class PropertyValueDAO {
         return 0;
     }
 	
+	public PropertyValue get(int id) {
+        PropertyValue bean = null;
+        List<Map<String, Object>> Myparams = new ArrayList<Map<String,Object>>();
+		Map<String,Object> Myparam = new HashMap<String,Object>();
+		Myparam.put("name", "id");
+		Myparam.put("rela", "=");
+		Myparam.put("value", id);
+		Myparams.add(Myparam);
+		List<PropertyValue> temp = query(Myparams);
+		if(temp.size()>0)bean = temp.get(0);
+        return bean;
+    }
+	
 	public PropertyValue get(int ptid, int pid) {
         PropertyValue bean = null;
         List<Map<String, Object>> Myparams = new ArrayList<Map<String,Object>>();
