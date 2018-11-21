@@ -42,7 +42,7 @@ public class BackServletFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) res;
 
         String contextPath = request.getContextPath();//获取路径：/xu_tmall
-        String uri = request.getRequestURI();//:/xu_mall/admin_Category_list
+        String uri = request.getRequestURI();//:/xu_mall/admin_Category_list.这个应该不拿到参数，而直接在request里的属性了
         uri = StringUtils.remove(uri, contextPath);
         if (uri.startsWith("/admin_")) {
             String servletPath = StringUtils.substringBetween(uri, "_", "_") + "Servlet";

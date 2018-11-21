@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.BasicRowProcessor;
@@ -12,7 +13,9 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import tmall.bean.Category;
 import tmall.bean.Product;
+import tmall.bean.ProductImage;
 import tmall.dao.CategoryDAO;
+import tmall.dao.ProductImageDAO;
 
 public class ProductHandler extends BeanHandler<Product>{
 	public ProductHandler() {
@@ -26,6 +29,10 @@ public class ProductHandler extends BeanHandler<Product>{
 		Date createDate = DateUtil.t2d(rs.getTimestamp("createDate"));
 		bean.setCategory(category);
 		bean.setCreateDate(createDate);
+		//在listhandler中很好的工作，但是在单独的产品中行不通，不知道为啥
+//		List<ProductImage>pisSingle = new ProductImageDAO().list(bean, "type_single", 0, 1);
+//		if (!pisSingle.isEmpty())
+//			bean.setFirstProductImage(pisSingle.get(0));
 		return bean;
 	}
 	//根据该函数中的来映射

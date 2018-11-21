@@ -23,8 +23,8 @@
 
 <div class="workingArea">
     <ol class="breadcrumb">
-        <li><a href="admin_category_list">所有分类</a></li>
-        <li><a href="admin_product_list?cid=${p.category.id}">${p.category.name}</a></li>
+        <li><a href="admin_Category_list">所有分类</a></li>
+        <li><a href="admin_Product_list?cid=${p.category.id}">${p.category.name}</a></li>
         <li class="active">${p.name}</li>
         <li class="active">产品图片管理</li>
     </ol>
@@ -37,7 +37,7 @@
                         <div class="panel-heading">新增产品<b class="text-primary"> 单个 </b>图片</div>
                         <div class="panel-body">
                             <form method="post" class="addFormSingle"
-                                  action="admin_productImage_add" enctype="multipart/form-data">
+                                  action="admin_ProductImage_add" enctype="multipart/form-data">
                                 <table class="addTable">
                                     <tr>
                                         <td>请选择本地图片 尺寸400X400 为佳</td>
@@ -78,7 +78,7 @@
                                 </td>
                                 <td>
                                     <a deleteLink="true"
-                                       href="admin_productImage_delete?id=${pi.id}">
+                                       href="admin_ProductImage_delete?id=${pi.id}">
                                         <span class="glyphicon glyphicon-trash">
                                         </span>
                                     </a>
@@ -95,7 +95,7 @@
                         <div class="panel-heading">新增产品<b class="text-primary"> 详情 </b>图片</div>
                         <div class="panel-body">
                             <form method="post" class="addFormDetail"
-                                  action="admin_productImage_add" enctype="multipart/form-data">
+                                  action="admin_ProductImage_add" enctype="multipart/form-data">
                                 <table class="addTable">
                                     <tr>
                                         <td>请选择本地图片 宽度790 为佳</td>
@@ -136,7 +136,7 @@
                                 </td>
                                 <td>
                                     <a deleteLink="true"
-                                       href="admin_productImage_delete?id=${pi.id}">
+                                       href="admin_ProductImage_delete?id=${pi.id}">
                                         <span class="glyphicon glyphicon-trash">
                                         </span>
                                     </a>

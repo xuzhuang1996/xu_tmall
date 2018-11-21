@@ -13,7 +13,6 @@ import tmall.bean.Product;
 import tmall.bean.ProductImage;
 import tmall.mydb.GetC3p0DB;
 import tmall.xu_util.DateUtil;
-import tmall.xu_util.OrderListHandler;
 import tmall.xu_util.ProductHandler;
 import tmall.xu_util.ProductListHandler;
 
@@ -110,7 +109,7 @@ public class ProductDAO {
             c.setProductsByRow(productsByRow);
         }
     }
-    
+    //在对应的Handler处理了，因此该函数没有用上
     public void setFirstProductImage(Product p) {
         List<ProductImage> pis = new ProductImageDAO().list(p, ProductImageDAO.type_single);
         if (!pis.isEmpty())
