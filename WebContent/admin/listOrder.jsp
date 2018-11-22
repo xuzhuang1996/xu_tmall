@@ -62,7 +62,7 @@
                             查看详情
                         </button>
                         <c:if test="${o.status=='waitDelivery'}">
-                            <a href="admin_order_delivery?id=${o.id}">
+                            <a href="admin_Order_delivery?id=${o.id}">
                                 <button class="btn btn-primary btn-xs">发货</button>
                             </a>
                         </c:if>

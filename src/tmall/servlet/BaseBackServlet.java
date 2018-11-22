@@ -85,7 +85,10 @@ public abstract class BaseBackServlet extends HttpServlet{
         if (redirect.startsWith("@"))
             response.sendRedirect(redirect.substring(1));//地址重定向，属于客户端跳转
         else if (redirect.startsWith("%"))
+        {
+        	//request.setCharacterEncoding("utf-8");  response.setContentType("text/html;charset=utf-8");
             response.getWriter().print(redirect.substring(1));
+        }
         else
             request.getRequestDispatcher(redirect).forward(request, response);//分发，服务端跳转,redirect就是那个地址，可为servlet也可以为直接的jsp
     }
