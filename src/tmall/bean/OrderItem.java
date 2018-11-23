@@ -4,7 +4,7 @@ package tmall.bean;
 //而此时必须有Product，并且是登录状态(能够从Session中取出User)
 //但是此时还没有和Order关联起来
 public class OrderItem {
-	private int number;
+	private int number;//商品数量number
     private Product product;
     private Order order;
     private User user;
