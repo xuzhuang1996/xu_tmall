@@ -14,7 +14,7 @@
         <div class="item active">
             <img class="carousel carouselImage" src="img/lunbo/1.jpg">
         </div>
-        <div class="item">
+        <div class="item ">
             <img class="carouselImage" src="img/lunbo/2.jpg">
         </div>
         <div class="item">
@@ -24,4 +24,5 @@
             <img class="carouselImage" src="img/lunbo/4.jpg">
         </div>
     </div>
+    
 </div>	

@@ -41,9 +41,7 @@ public class ForeServletFilter implements Filter {
 		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
+	
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
@@ -74,15 +72,13 @@ public class ForeServletFilter implements Filter {
         if (uri.startsWith("/fore") && !uri.startsWith("/foreServlet")) {
             String method = StringUtils.substringAfterLast(uri, "/fore");
             request.setAttribute("method", method);
-            req.getRequestDispatcher("/foreServlet").forward(request, response);
+            req.getRequestDispatcher("/ForeServlet").forward(request, response);//这里跟后台不一样在于，已经知道只有一个servlet处理
             return;
         }
 		chain.doFilter(request, response);
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}

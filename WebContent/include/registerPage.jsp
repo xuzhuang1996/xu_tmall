@@ -1,11 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<script src="js/jquery/2.0.0/jquery.min.js"></script>
+<link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<link href="css/fore/style.css" rel="stylesheet">
+
 <script>
     $(function () {
         <c:if test="${!empty msg}">
         $("span.errorMessage").html("${msg}");
         $("div.registerErrorMessageDiv").css("visibility", "visible");
         </c:if>
-
+        
+        //可选。规定当发生 submit 事件时运行的函数
         $(".registerForm").submit(function () {
             if (0 == $("#name").val().length) {
                 $("span.errorMessage").html("请输入用户名");
@@ -71,7 +79,7 @@
             </tr>
 
             <tr>
-                <td colspan="2" class="registerButtonTD">
+                <td colspan="2" class="registerButtonTD"><!-- colspan="2"表格单元横跨两列的表格,暂时不知道怎么提交的，这个按钮直接向成功页跳转，同时带走了数据。 -->
                     <a href="registerSuccess.jsp">
                         <button>提 交</button>
                     </a>

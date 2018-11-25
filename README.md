@@ -51,4 +51,9 @@ jsp发送数据action="admin_category_add"，过滤器拦截admin_category_add�
 &ensp;&ensp;&ensp;&ensp;13.产品图片的操作。这里图片没有存数据库，而是在文件夹中，产品图片的对象中存了id跟类型，以及属于哪个产品。然后jsp展示的时候在相应文件夹取id的图片。（调试的时候如果想看request的参数设置，在coyoteRequest里面的参数，点击这个参数的英文就能出现具体）。另外，现在才发现。之前图片DAO，第一张图片没有设置，导致产品管理里面的图片没有。后来在Handler里面设置了，因此DAO自带的setFirstProductImage没用了。  
 &ensp;&ensp;&ensp;&ensp;14对于产品属性值的设置。主要是初始化的问题，propertyValueDAO.init(p);如果新增一个产品。不使用这个函数的话，在数据库中查找根据产品pid来查propertyValue中值，会发现是空的。接着在这个产品下去设置属性，进入edit.jsp页面，会发现是空的，但此时数据库中却出现了属性值对应的行项（进行了初始化）。接着再进去，页面就有属性与属性框了。于是我将初始化写进了新增的函数里，每次新增一个产品，就给他初始化属性与属性值。另外需要注意的是，删除的时候，由于有的产品有图片，不能删除，只能等下级图片删除后才能删除。最后就是ajax乱码问题。确认编码过滤器没屁用。ajax反而不需要工具类的转换。直接就是这个值。
    
-Servlet怎么写呢。首先写list，怎么写呢，看哪个页面能进到这个list.jsp里面，需要哪些参数，由servlet提供的。确定好参数后在list方法中提供参数后访问list.jsp。之后写add，然后是delete。最后先写edit进到edit.jsp页面，在这个页面提交数据后在update里接受进行更新。
+**Servlet怎么写呢。首先写list，怎么写呢，看哪个页面能进到这个list.jsp里面，需要哪些参数，由servlet提供的。确定好参数后在list方法中提供参数后访问list.jsp。之后写add，然后是delete。最后先写edit进到edit.jsp页面，在这个页面提交数据后在update里接受进行更新。**    
+**完整版的分页怎么做的，主要是中间那个分页，前后先不管。当点击一页的时候，对其周围的页数进行判断，符合条件的就做按钮出来。然后对当前页设置disable，以及current样式**  
+
+
+# 三、前后台部分
+&ensp;&ensp;&ensp;&ensp;15

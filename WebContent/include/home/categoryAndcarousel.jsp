@@ -1,5 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script src="js/jquery/2.0.0/jquery.min.js"></script>
+<link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
+<script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
+<link href="css/fore/style.css" rel="stylesheet">
 <script>
     function showProductsAsideCategorys(cid) {
         $("div.eachCategory[cid=" + cid + "]").css("background-color", "white");
@@ -65,7 +70,7 @@
             <span><a href=""><img src="img/site/guoji.png"/></a></span>
 
             <c:forEach items="${cs}" var="c" varStatus="st">
-                <c:if test="${st.count<=4}">
+                <c:if test="${st.count<=4}"><!-- test 不管，就是个形式，st.count当前循环的数量，循环的状态varStatus，拿行号啥的 -->
 				<span>
 				<a href="forecategory?cid=${c.id}">
                         ${c.name}

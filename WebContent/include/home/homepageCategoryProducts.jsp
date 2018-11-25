@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:if test="${empty param.categorycount}">
     <c:set var="categorycount" scope="page" value="100"/>
@@ -8,7 +11,6 @@
 <c:if test="${!empty param.categorycount}">
     <c:set var="categorycount" scope="page" value="${param.categorycount}"/>
 </c:if>
-
 <div class="homepageCategoryProducts">
     <c:forEach items="${cs}" var="c" varStatus="stc">
         <c:if test="${stc.count<=categorycount}">
@@ -16,7 +18,7 @@
                 <div class="left-mark"></div>
                 <span class="categoryTitle">${c.name}</span>
                 <br>
-                <c:forEach items="${c.products}" var="p" varStatus="st">
+                <c:forEach items="${c.products}" var="p" varStatus="st"><!-- 按照每种分类显示5个商品的方式，显示所有17种分类 -->
                     <c:if test="${st.count<=5}">
                         <div class="productItem">
                             <a href="foreproduct?pid=${p.id}">
@@ -41,3 +43,4 @@
     </c:forEach>
     <img id="endpng" class="endpng" src="img/site/end.png">
 </div>
+

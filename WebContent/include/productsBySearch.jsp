@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="searchProducts">
     <c:forEach items="${ps}" var="p">
     <div class="productUnit" price="${p.promotePrice}">
@@ -26,8 +28,9 @@
     </div>
     </c:forEach>
     <c:if test="${empty ps}">
-    <div class="noMatch">没有满足条件的产品
-        <div>
-            </c:if>
-            <div style="clear:both"></div>
-        </div>
+        <div class="noMatch">没有满足条件的产品</div>
+        <div style="clear:both"></div>
+    </c:if>
+</div>           
+        
+    
