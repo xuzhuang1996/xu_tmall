@@ -1,13 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<script src="js/jquery/2.0.0/jquery.min.js"></script>
-<link href="css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
-<script src="js/bootstrap/3.3.6/bootstrap.min.js"></script>
-<link href="css/fore/style.css" rel="stylesheet">
+
 
 <script>
     $(function () {
+    	//每次进入时判断，是否有错误信息提示用户存在
         <c:if test="${!empty msg}">
         $("span.errorMessage").html("${msg}");
         $("div.registerErrorMessageDiv").css("visibility", "visible");
@@ -41,9 +39,12 @@
 </script>
 
 <form method="post" action="foreregister" class="registerForm">
-    <div class="registerDiv">
+    <div class="registerDiv"><!-- 出错信息，如果注册的时候使用了已经存在的用户名，就会有这个错误提示。 -->
         <div class="registerErrorMessageDiv">
             <div class="alert alert-danger" role="alert">
+            <!--data-dismiss，用于关闭模态窗口.正常情况下， -->
+            <!--form表单的input组件都有对应的label，当input组件获取到焦点时，屏幕阅读器会读出相应label里的文本。-->
+            <!--但是如果没有给输入框设置label时，当其获得焦点时，屏幕阅读器会读出aria-label属性的值，aria-label不会在视觉上呈现效果 -->
                 <button type="button" class="close" data-dismiss="alert"
                         aria-label="Close"></button>
                 <span class="errorMessage"></span>
