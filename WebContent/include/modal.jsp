@@ -32,7 +32,7 @@
                     <a href="#nowhere">忘记登录密码</a>
                     <a href="register.jsp" class="pull-right">免费注册</a>
                 </div>
-                <div style="margin-top:20px">
+                <div style="margin-top:20px"><!-- loginSubmitButton上面有监听，点击之后，把账号密码通过ajax的方式发送到服务端的foreloginAjax方法，进行登录验证 -->
                     <button class="btn btn-block redButton loginSubmitButton" type="submit">登录
                     </button>
                 </div>

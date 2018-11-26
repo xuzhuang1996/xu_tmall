@@ -35,8 +35,7 @@
         <div id="loginSmallDiv" class="loginSmallDiv">
             <div class="loginErrorMessageDiv">
                 <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert"
-                            aria-label="Close"></button>
+                    
                     <span class="errorMessage"></span>
                 </div>
             </div>

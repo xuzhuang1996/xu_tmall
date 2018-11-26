@@ -1,8 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
     $(function () {
         var stock = ${p.stock};
+        //在页面的数量那里，点击就会增加或者减少
         $(".productNumberSetting").keyup(function () {
             var num = $(".productNumberSetting").val();
             num = parseInt(num);
@@ -29,7 +31,7 @@
                 num = 1;
             $(".productNumberSetting").val(num);
         });
-
+        //增加购物车按钮,get的方式确认登录后，回调再来一个get请求。去执行加入购物车操作
         $(".addCartButton").removeAttr("disabled");
         $(".addCartLink").click(function () {
             var page = "forecheckLogin";
@@ -55,11 +57,11 @@
                             }
                         );
                     } else {
-                        $("#loginModal").modal('show');
+                        $("#loginModal").modal('show');//需要一种美观的弹出框，js原生的alert，很难满足需求。这里推荐一个bootstrap的弹出框
                     }
                 }
             );
-            return false;
+            return false;//return false表示超链点击本身的跳转功能取消掉
         });
         $(".buyLink").click(function () {
             var page = "forecheckLogin";
@@ -76,7 +78,7 @@
             );
             return false;
         });
-
+        //当modal出现的时候去登录，点击按钮后。进行登录.小碧池用的class样式loginSubmitButton
         $("button.loginSubmitButton").click(function () {
             var name = $("#name").val();
             var password = $("#password").val();
@@ -93,7 +95,7 @@
                 {"name": name, "password": password},
                 function (result) {
                     if ("success" == result) {
-                        location.reload();
+                        location.reload();//给session加入用户后，重新加载页面
                     } else {
                         $("span.errorMessage").html("账号密码错误");
                         $("div.loginErrorMessageDiv").show();
@@ -125,7 +127,7 @@
 </script>
 
 <div class="imgAndInfo">
-    <div class="imgInimgAndInfo">
+    <div class="imgInimgAndInfo"><!-- 显示本商品的5个单独图片 -->
         <img src="img/productSingle/${p.firstProductImage.id}.jpg" class="bigImg">
         <div class="smallImageDiv">
             <c:forEach items="${p.productSingleImages}" var="pi">

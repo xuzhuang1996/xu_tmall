@@ -59,7 +59,7 @@ public class ForeServletFilter implements Filter {
         }
         request.setAttribute("cartTotalItemNumber", cartTotalItemNumber);
         
-        List<Category> cs = (List<Category>) request.getAttribute("cs");
+        List<Category> cs = (List<Category>) request.getAttribute("cs");//怎么来的？？？？？？？？？？？？？？？？
         //如果请求中没用分类的信息，则从数据库中拿
         if (null == cs) {
             cs = new CategoryDAO().list();
