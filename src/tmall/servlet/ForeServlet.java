@@ -1,5 +1,6 @@
 package tmall.servlet;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
@@ -89,7 +90,12 @@ public class ForeServlet extends BaseForeServlet {
     }
     
     public String search(HttpServletRequest request, HttpServletResponse response, Page page) {
-    	return "productsBySearch.jsp";
+    	//String keyword = XuEncodeUtil.getNewString(request.getParameter("keyword"));
+    	String keyword =request.getParameter("keyword");//将提交方式改为get了。没办法。哎
+    	List<Product> ps = productDAO.search(keyword, 0, 20);
+    	//productDAO.setSaleAndReviewNumber(ps);
+        request.setAttribute("ps", ps);
+    	return "searchResult.jsp";//为啥不是这个productsBySearch.jsp，因为它放在最里面，地址不对访问不到。访问searchResult.jsp是因为直接在外面
     }
     
     //
@@ -113,6 +119,40 @@ public class ForeServlet extends BaseForeServlet {
     	}
     	request.getSession().setAttribute("user", user);
     	return "%success";
+    }
+    
+    public String category(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int cid= Integer.parseInt(request.getParameter("cid"));
+    	String sort = request.getParameter("sort");
+    	Category c= categoryDAO.get(cid);
+    	List<Product>ps= productDAO.list(cid);//数据库不可能存这些信息，只能每次拿出来的时候进行设置
+    	productDAO.fill(Collections.singletonList(c));//????将该分类下的产品进行绑定
+    	//productDAO.setSaleAndReviewNumber(c.getProducts());//将所有产品进行属性赋值,这个的前提是每一个都要有一个订单项，不然报错
+    	//对产品进行排序
+    	if(sort!=null) {
+    		switch(sort) {
+	    	case "all":
+	    		ps.sort((p1,p2)->p2.getReviewCount() * p2.getSaleCount() - p1.getReviewCount() * p1.getSaleCount());
+	    		break;
+	    	case "review":
+	    	    ps.sort((p1,p2)->p2.getReviewCount() - p1.getReviewCount());
+	    		break;
+	    	case "date":
+	    		ps.sort((p1,p2)->p2.getCreateDate().compareTo(p1.getCreateDate()));
+	    		break;
+	    	case "saleCount":
+	    		ps.sort((p1,p2)->p2.getSaleCount() - p1.getSaleCount());
+	    		break;
+	    	case "price":
+	    		ps.sort((p1,p2)->(int)(p1.getPromotePrice() - p2.getPromotePrice()));
+	    		break;
+	    	default:
+	    		break;
+    	}
+    	}
+    	c.setProducts(ps);
+    	request.setAttribute("c", c);
+    	return "category.jsp";
     }
 
     

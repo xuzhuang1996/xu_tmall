@@ -6,6 +6,7 @@ import tmall.bean.Category;
 import tmall.bean.Property;
 import tmall.bean.PropertyValue;
 import tmall.dao.CategoryDAO;
+import tmall.dao.OrderItemDAO;
 import tmall.dao.ProductImageDAO;
 import tmall.dao.PropertyDAO;
 import tmall.dao.PropertyValueDAO;
@@ -40,7 +41,9 @@ public class Test {
 		
 //		PropertyValueDAO p = new PropertyValueDAO();
 //		System.out.println(p.get(113, 484).getValue());
-		
+		OrderItemDAO o=new OrderItemDAO();
+		System.out.println(o.getSaleCount(91));
+		//System.out.println(o.getTotal());
 		
 	}
 

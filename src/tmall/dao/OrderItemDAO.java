@@ -30,12 +30,12 @@ public class OrderItemDAO {
         return total;
     }
     
-    int getSaleCount(int pid) {
+    public int getSaleCount(int pid) {
         int total = 0;
         try (Connection conn = GetC3p0DB.getConnection();) {
             String sql = "SELECT sum(number) FROM `OrderItem` WHERE `pid` = " + pid;
             QueryRunner queryRunner = new QueryRunner();
-            total = ((Long)queryRunner.query(conn,sql,new ScalarHandler<>())).intValue();
+            total = Integer.parseInt((queryRunner.query(conn,sql,new ScalarHandler<>())).toString());//¸úcount(*)²»Ò»Ñù
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e1) {
