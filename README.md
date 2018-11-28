@@ -59,4 +59,5 @@ jsp发送数据action="admin_category_add"，过滤器拦截admin_category_add�
 # 三、前后台部分
 &ensp;&ensp;&ensp;&ensp;15主要说一下那个错误提示，比如登录或者注册的时候，如果密码不正确，submit后，根据相应函数处理后，通过request.setAttribute("msg", "用户名已经被使用,不能使用");返回错误信息，<c:if test="${!empty msg}">在原先表单那输出错误信息：$("span.errorMessage").html("${msg}");另外ajax请求的数据不需要转化的处理。再就是，数据库存储的数据跟一个bean下的数据不是完全匹配的，比如一个分类下的所有产品，数据库并没有存储，产品只是存储了cid，因此每次取出来产品的时候就需要进行一个设置。  
 &ensp;&ensp;&ensp;&ensp;16使用lambdas表达式来进行排序。简化代码。另外${param.keyword}的写法等价于${keyword}。  
-**总的来说，前后台部分，比较麻烦。**
+**总的来说，前后台部分，比较麻烦。**  
+17.点击购买时，在imgAndInfo.jsp页面绑定的按钮事件会触发，forecheckLogin进行判断是否登陆，已登陆则进入购买函数中，提交了pid,num等信息，再从modal.jsp拿到用户就可以生成一个订单项了。否则modal.jsp出现。

@@ -1,5 +1,6 @@
 package tmall.servlet;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.util.HtmlUtils;
 
 import tmall.bean.Category;
+import tmall.bean.OrderItem;
 import tmall.bean.Product;
 import tmall.bean.ProductImage;
 import tmall.bean.PropertyValue;
@@ -153,6 +155,38 @@ public class ForeServlet extends BaseForeServlet {
     	c.setProducts(ps);
     	request.setAttribute("c", c);
     	return "category.jsp";
+    }
+    
+    //在产品页，如果已经登录，点击购买，会提交数据到服务端，生成订单项，并且跳转到结算页面。我觉得这个名字应该改成buyNow
+    public String buyone(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int pid= Integer.parseInt(request.getParameter("pid"));
+    	User user = (User)request.getSession().getAttribute("user");
+    	int number =Integer.parseInt(request.getParameter("num"));
+    	OrderItem oi = new OrderItem();
+    	oi.setUser(user);
+    	oi.setProduct(productDAO.get(pid));
+    	//如果已经存在这个产品对应的OrderItem，并且还没有生成订单，即还在购物车中。 那么就应该在对应的OrderItem基础上，调整数量，当然了，这个操作我肯定不做了
+    	oi.setNumber(number);
+    	orderItemDAO.add(oi);
+    	int oiid = oi.getId();
+    	return "@forebuy?oiid=" + oiid;//我的话直接写return "buy.jsp"，但是buy.jsp接收的参数是ois，即所有订单项。因此肯定时考虑了从购物车购买的情况。将2种情况进行综合，在结算页面
+    }
+    
+    //在结算页面显示被选中的订单项，缺ois与total
+    public String buy(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	String[] oiids = request.getParameterValues("oiid");//是获得如checkbox类（名字相同，但值有多个）的数据
+    	List<OrderItem>ois=new ArrayList<>();
+    	float total =0.0f;
+    	for(int i=0; i<oiids.length;i++) {
+    		int id = Integer.parseInt(oiids[i]);
+    		OrderItem oi = orderItemDAO.get(id);
+    		total += oi.getProduct().getPromotePrice()*oi.getNumber();
+    		ois.add(oi);
+    	}
+    	//ois为什么要放在session里而不是request中.购物车里面要用，放在 request 里查不到。
+    	request.getSession().setAttribute("ois", ois);
+    	request.setAttribute("total", total);
+    	return "buy.jsp";
     }
 
     
