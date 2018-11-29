@@ -203,10 +203,11 @@ public class ForeServlet extends BaseForeServlet {
     		int id = Integer.parseInt(oiids[i]);
     		OrderItem oi = orderItemDAO.get(id);
     		total += oi.getProduct().getPromotePrice()*oi.getNumber();
-    		//由于firstImage只在listHandler中处理。如果单独在handler中处理就报数据库连接过多的错误，因此这里只能自己单独给每个产品加firstImage
-    		List<ProductImage>pisSingle = new ProductImageDAO().list(oi.getProduct(), "type_single", 0, 1);
-    		if (!pisSingle.isEmpty())
-    			oi.getProduct().setFirstProductImage(pisSingle.get(0));
+    		//由于firstImage只在listHandler中处理。如果单独在handler中处理就报数据库连接过多的错误(原因未知)，因此这里只能自己单独给每个产品加firstImage
+//    		List<ProductImage>pisSingle = new ProductImageDAO().list(oi.getProduct(), "type_single", 0, 1);
+//    		if (!pisSingle.isEmpty())
+//    			oi.getProduct().setFirstProductImage(pisSingle.get(0));
+    		productDAO.setFirstProductImage(oi.getProduct());
     		//最后
     		ois.add(oi);
     	}
@@ -216,9 +217,36 @@ public class ForeServlet extends BaseForeServlet {
     	return "buy.jsp";
     }
     
+    //缺ois
+    public String cart(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	User user = (User)request.getSession().getAttribute("user");
+//    	if(user==null)return "login.jsp";//用了那个过滤器后，就不需要对每一个缺session的页面加这句话了。
+    	List<OrderItem>ois=orderItemDAO.listByUser(user.getId());
+    	for(OrderItem oi:ois) {
+    		productDAO.setFirstProductImage(oi.getProduct());
+    	}
+    	request.setAttribute("ois", ois);
+    	return "cart.jsp";
+    }
+    
+    public String deleteOrderItem(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int oiid = Integer.parseInt(request.getParameter("oiid"));
+    	if(orderItemDAO.delete(oiid)<=0)return "%fail";
+    	else return "%success";
+    }
+    
     public String createOrder(HttpServletRequest request, HttpServletResponse response, Page page) {
     	
     	return "";
+    }
+    
+    public String changeOrderItem(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int oiid = Integer.parseInt(request.getParameter("oiid"));//我觉得这个好点
+    	int num = Integer.parseInt(request.getParameter("num"));
+    	OrderItem oi = orderItemDAO.get(oiid);
+    	oi.setNumber(num);
+    	orderItemDAO.update(oi);
+    	return "%success";
     }
 
     

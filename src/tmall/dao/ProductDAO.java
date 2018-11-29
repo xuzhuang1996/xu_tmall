@@ -109,7 +109,7 @@ public class ProductDAO {
             c.setProductsByRow(productsByRow);
         }
     }
-    //在对应的Handler处理了，因此该函数没有用上
+    
     public void setFirstProductImage(Product p) {
         List<ProductImage> pis = new ProductImageDAO().list(p, ProductImageDAO.type_single);
         if (!pis.isEmpty())

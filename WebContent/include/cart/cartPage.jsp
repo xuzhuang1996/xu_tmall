@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
     var deleteOrderItem = false;
     var deleteOrderItemid = 0;
     $(function () {
-
+        //点击删除的时候就会弹出来。，id="deleteConfirmModal"在modal.jsp
         $("a.deleteOrderItem").click(function () {
             deleteOrderItem = false;
             var oiid = $(this).attr("oiid")
@@ -15,7 +16,7 @@
             deleteOrderItem = true;
             $("#deleteConfirmModal").modal('hide');
         });
-
+        //当弹出的模态框消失的时候接下来回调的函数,就是删除按钮确定的时候deleteOrderItem=true  hidden.bs.modal
         $('#deleteConfirmModal').on('hidden.bs.modal', function (e) {
             if (deleteOrderItem) {
                 var page = "foredeleteOrderItem";
@@ -24,7 +25,8 @@
                     {"oiid": deleteOrderItemid},
                     function (result) {
                         if ("success" == result) {
-                            $("tr.cartProductItemTR[oiid=" + deleteOrderItemid + "]").hide();
+                            //$("tr.cartProductItemTR[oiid=" + deleteOrderItemid + "]").hide();
+                            $("tr.cartProductItemTR[oiid=" + deleteOrderItemid + "]").remove();
                         } else {
                             location.href = "login.jsp";
                         }
@@ -33,8 +35,10 @@
             }
         })
 
+        //给这个类进行绑定点击函数-打勾或去掉产生相应的总价-这里所谓的打勾其实就是图片的切换并不是真的打勾
         $("img.cartProductItemIfSelected").click(function () {
             var selectit = $(this).attr("selectit")
+            //如果已经选择后再次点击就是取消选择了 
             if ("selectit" == selectit) {
                 $(this).attr("src", "img/site/cartNotSelected.png");
                 $(this).attr("selectit", "false")
@@ -44,10 +48,11 @@
                 $(this).attr("selectit", "selectit")
                 $(this).parents("tr.cartProductItemTR").css("background-color", "#FFF8E1");
             }
-            syncSelect();
-            syncCreateOrderButton();
-            calcCartSumPriceAndNumber();
+            syncSelect();//如果所有的都打勾了，那么selectall将打勾，否则不打勾 
+            syncCreateOrderButton();//只要有一个订单项打勾，提交订单的按钮就是可用的，否则不可用
+            calcCartSumPriceAndNumber();//计算总价跟总数
         });
+        //全选时如果全选图片的属性表示已经全选就全不选-否则全选 
         $("img.selectAllItem").click(function () {
             var selectit = $(this).attr("selectit")
             if ("selectit" == selectit) {
@@ -67,8 +72,8 @@
                     $(this).parents("tr.cartProductItemTR").css("background-color", "#FFF8E1");
                 });
             }
-            syncCreateOrderButton();
-            calcCartSumPriceAndNumber();
+            syncCreateOrderButton();//对提交订单按钮进行处理-是否可用
+            calcCartSumPriceAndNumber();//重新计算价格
         });
 
         $(".orderItemNumberSetting").keyup(function () {
@@ -83,7 +88,8 @@
                 num = 1;
             if (num > stock)
                 num = stock;
-            syncPrice(pid, num, price);
+            var oiid = $("tr.cartProductItemTR").attr("oiid");
+            syncPrice(pid, num, price, oiid);
         });
 
         $(".numberPlus").click(function () {
@@ -94,7 +100,8 @@
             num++;
             if (num > stock)
                 num = stock;
-            syncPrice(pid, num, price);
+            var oiid = $("tr.cartProductItemTR").attr("oiid");
+            syncPrice(pid, num, price, oiid);
         });
         $(".numberMinus").click(function () {
             var pid = $(this).attr("pid");
@@ -104,9 +111,11 @@
             --num;
             if (num <= 0)
                 num = 1;
-            syncPrice(pid, num, price);
+            var oiid = $("tr.cartProductItemTR").attr("oiid");
+            syncPrice(pid, num, price, oiid);//动态改变订单项。就是加减的时候，进行了数据库操作
         });
 
+        //提交订单事件-进入结算页面 
         $("button.createOrderButton").click(function () {
             var params = "";
             $(".cartProductItemIfSelected").each(function () {
@@ -150,8 +159,9 @@
     }
 
     function calcCartSumPriceAndNumber() {
-        var sum = 0;
-        var totalNumber = 0;
+        var sum = 0;//所有订单项的总价
+        var totalNumber = 0;//所有订单项的数目  
+        //所有属性为选中状态的订单项 进行计算 
         $("img.cartProductItemIfSelected[selectit='selectit']").each(function () {
             var oiid = $(this).attr("oiid");
             var price = $(".cartProductItemSmallSumPrice[oiid=" + oiid + "]").text();
@@ -167,16 +177,18 @@
         $("span.cartSumNumber").html(totalNumber);
     }
 
-    function syncPrice(pid, num, price) {
+    //动态调整订单项,这里跟博主不一样在于，pid我没用了，直接用的oiid。这样servlet里面实现的简单一点
+    function syncPrice(pid, num, price, oiid) {
         $(".orderItemNumberSetting[pid=" + pid + "]").val(num);
         var cartProductItemSmallSumPrice = formatMoney(num * price);
         $(".cartProductItemSmallSumPrice[pid=" + pid + "]").html("￥" + cartProductItemSmallSumPrice);
         calcCartSumPriceAndNumber();
 
+        
         var page = "forechangeOrderItem";
         $.post(
             page,
-            {"pid": pid, "number": num},
+            {"oiid": oiid, "num": num},
             function (result) {
                 if ("success" != result)
                     location.href = "login.jsp";
