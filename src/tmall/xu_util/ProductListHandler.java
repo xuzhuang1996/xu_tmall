@@ -33,9 +33,11 @@ public class ProductListHandler extends BeanListHandler<Product>{
 			Date createDate = DateUtil.t2d(rs.getTimestamp("createDate"));
 			bean.get(index).setCategory(category);
 			bean.get(index).setCreateDate(createDate);
-			List<ProductImage>pisSingle = new ProductImageDAO().list(bean.get(index), "type_single", 0, 1);
-			if (!pisSingle.isEmpty())
-				bean.get(index).setFirstProductImage(pisSingle.get(0));
+			if(bean.get(index).getFirstProductImage()==null) {
+				List<ProductImage>pisSingle = new ProductImageDAO().list(bean.get(index), "type_single", 0, 1);
+				if (!pisSingle.isEmpty())
+					bean.get(index).setFirstProductImage(pisSingle.get(0));
+			}
 			rs.next();//”Œ±Íœ¬“∆
 		}
 		return bean;

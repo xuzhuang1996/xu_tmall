@@ -1,5 +1,6 @@
 package tmall.dao;
 
+import java.io.Console;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class ProductImageDAO {
         try (Connection conn = GetC3p0DB.getConnection();) {
         	QueryRunner qr = new QueryRunner();
             beans = qr.query(conn,sql,new ProductImageListHandler(),p.getId(),type,start,count);
+            
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e1) {

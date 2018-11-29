@@ -3,10 +3,13 @@ package tmall.test;
 import java.util.List;
 
 import tmall.bean.Category;
+import tmall.bean.Product;
+import tmall.bean.ProductImage;
 import tmall.bean.Property;
 import tmall.bean.PropertyValue;
 import tmall.dao.CategoryDAO;
 import tmall.dao.OrderItemDAO;
+import tmall.dao.ProductDAO;
 import tmall.dao.ProductImageDAO;
 import tmall.dao.PropertyDAO;
 import tmall.dao.PropertyValueDAO;
@@ -41,10 +44,17 @@ public class Test {
 		
 //		PropertyValueDAO p = new PropertyValueDAO();
 //		System.out.println(p.get(113, 484).getValue());
-		OrderItemDAO o=new OrderItemDAO();
-		System.out.println(o.getSaleCount(91));
+//		OrderItemDAO o=new OrderItemDAO();
+//		System.out.println(o.getSaleCount(91));
 		//System.out.println(o.getTotal());
-		
+		Product p =new ProductDAO().get(981);
+//		List<ProductImage>pisSingle = new ProductImageDAO().list(p, "type_single", 0, 1);
+//		if (!pisSingle.isEmpty())
+//			p.setFirstProductImage(pisSingle.get(0));
+		//ProductImageDAO pdao = new ProductImageDAO();
+		//ProductImage pp = pdao.get(10241);
+//		int s = p.getFirstProductImage().getId();
+//		System.out.println("s="+s);
 	}
 
 }
