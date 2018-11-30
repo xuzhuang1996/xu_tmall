@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix='fmt' %>
 
 <div class="reviewDiv">
     <div class="reviewProductInfoDiv">
@@ -73,7 +75,7 @@
         </div>
     </c:if>
 
-    <c:if test="${param.showonly!=true}">
+    <c:if test="${param.showonly!=true}"><!-- 不知道这个怎么搞的 -->
         <div class="makeReviewDiv">
             <form method="post" action="foredoreview">
                 <div class="makeReviewText">其他买家，需要你的建议哦！</div>

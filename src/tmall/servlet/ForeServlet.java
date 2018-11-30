@@ -91,6 +91,7 @@ public class ForeServlet extends BaseForeServlet {
         List<ProductImage> productDetailImages = productImageDAO.list(p, ProductImageDAO.type_detail);
         p.setProductSingleImages(productSingleImages);
         p.setProductDetailImages(productDetailImages);
+        productDAO.setSaleAndReviewNumber(p);//怎么能少了这个销量参数呢
     	request.setAttribute("p", p);
     	request.setAttribute("reviews", reviews);
     	request.setAttribute("pvs", pvs);
@@ -325,6 +326,57 @@ public class ForeServlet extends BaseForeServlet {
         o.setStatus(orderDAO.delete);
         orderDAO.update(o);
         return "%success";//不是真删除
+    }
+    
+    public String confirmPay(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int oid =  Integer.parseInt(request.getParameter("oid"));
+    	Order o = orderDAO.get(oid);
+    	orderItemDAO.fill(o);
+    	request.setAttribute("o", o);
+    	return "confirmPay.jsp";
+    }
+    
+    public String orderConfirmed(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int oid =  Integer.parseInt(request.getParameter("oid"));
+    	Order o = orderDAO.get(oid);
+    	o.setStatus(orderDAO.waitReview);
+    	o.setConfirmDate(new Date());
+    	orderDAO.update(o);
+    	return "orderConfirmed.jsp";
+    }
+    
+    //按钮只给了一个oid。怎么确定就是这个产品呢？
+    public String review(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int oid =  Integer.parseInt(request.getParameter("oid"));
+    	Order o = orderDAO.get(oid);
+    	orderItemDAO.fill(o);
+    	Product p = o.getOrderItems().get(0).getProduct();//为啥只有一个产品。这里没有做到对单独的产品评论
+    	List<Review> reviews = reviewDAO.list(p.getId());
+    	productDAO.setFirstProductImage(p);
+    	productDAO.setSaleAndReviewNumber(p);
+        request.setAttribute("p", p);
+        request.setAttribute("o", o);
+        request.setAttribute("reviews", reviews);
+    	return "review.jsp";
+    }
+    
+    //执行保存评论的操作
+    public String doreview(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int oid = Integer.parseInt(request.getParameter("oid"));
+    	int pid = Integer.parseInt(request.getParameter("pid"));
+    	String content = request.getParameter("content");
+    	Review r = new Review();
+        Order o = orderDAO.get(oid);
+        User user = (User) request.getSession().getAttribute("user");//用户怎么会缺呢
+        
+        o.setStatus(orderDAO.finish);
+        orderDAO.update(o);
+        r.setContent(content);
+        r.setCreateDate(new Date());
+        r.setProduct(productDAO.get(pid));
+        r.setUser(user);
+        reviewDAO.add(r);
+    	return "@forereview?oid=" + oid + "&showonly=true";//这个重定向真的，如果没有这个参数，就显示填写评价的div，如果有，则显示所有的评价
     }
 
     

@@ -52,6 +52,10 @@
                                     $(".addCartButton").css("background-color", "lightgray")
                                     $(".addCartButton").css("border-color", "lightgray")
                                     $(".addCartButton").css("color", "black")
+                                    //拿到加入时的数量
+                                    var num = Number($(".productNumberSetting").val());
+                                    var start = Number(document.querySelector("#forecart strong").innerHTML);//为了拿到购物车的上面的那个数字真的惨
+                                    $("#forecart strong").html(num+start);
                                 } else {
                                 }
                             }

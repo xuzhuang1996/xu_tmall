@@ -121,7 +121,10 @@ public class OrderItemDAO {
         List<OrderItem> ois = listByOrder(o.getId());
         float total = 0;
         for (OrderItem oi : ois)
-            total += oi.getNumber() * oi.getProduct().getPromotePrice();
+            {
+        	     total += oi.getNumber() * oi.getProduct().getPromotePrice();
+        	     new ProductDAO().setFirstProductImage(oi.getProduct());//给订单项的每一个产品设置图片(这个博主没写？)
+            }
 
         o.setTotal(total);
         o.setOrderItems(ois);

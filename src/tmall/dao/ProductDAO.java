@@ -116,7 +116,7 @@ public class ProductDAO {
             p.setFirstProductImage(pis.get(0));
     }
 
-    private void setSaleAndReviewNumber(Product p) {
+    public void setSaleAndReviewNumber(Product p) {
         int saleCount = new OrderItemDAO().getSaleCount(p.getId());
         p.setSaleCount(saleCount);
         int reviewCount = new ReviewDAO().getTotal(p.getId());//这里没用getcount
