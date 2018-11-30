@@ -8,6 +8,7 @@ import tmall.bean.ProductImage;
 import tmall.bean.Property;
 import tmall.bean.PropertyValue;
 import tmall.dao.CategoryDAO;
+import tmall.dao.OrderDAO;
 import tmall.dao.OrderItemDAO;
 import tmall.dao.ProductDAO;
 import tmall.dao.ProductImageDAO;
@@ -47,7 +48,7 @@ public class Test {
 //		OrderItemDAO o=new OrderItemDAO();
 //		System.out.println(o.getSaleCount(91));
 		//System.out.println(o.getTotal());
-		Product p =new ProductDAO().get(981);
+		//System.out.println(new OrderDAO().list(1,"").size());
 //		List<ProductImage>pisSingle = new ProductImageDAO().list(p, "type_single", 0, 1);
 //		if (!pisSingle.isEmpty())
 //			p.setFirstProductImage(pisSingle.get(0));

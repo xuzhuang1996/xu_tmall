@@ -1,6 +1,7 @@
 package tmall.servlet;
 
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
@@ -51,9 +52,19 @@ public class OrderServlet extends BaseBackServlet {
 		int total = userDAO.getTotal();
         page.setTotal(total);
         List<Order>os=orderDAO.list(page.getStart(), page.getCount());
+        orderItemDAO.fill(os);
         request.setAttribute("os", os);
         request.setAttribute("page", page);
 		return "admin/listOrder.jsp";
+	}
+	
+	public String delivery(HttpServletRequest request, HttpServletResponse response, Page page) {
+		int oid = Integer.parseInt(request.getParameter("id"));
+		Order o = orderDAO.get(oid);
+		o.setDeliveryDate(new Date());//日期容易忘
+		o.setStatus(orderDAO.waitConfirm);
+		orderDAO.update(o);//这个最容易忘，总是set以后忘记更新
+		return "@admin_Order_list";//哎为啥要重定向。填的admin/listOrder.jsp报错，估计是没有这个os page数据吧
 	}
 
 

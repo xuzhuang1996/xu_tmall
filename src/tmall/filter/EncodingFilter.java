@@ -32,13 +32,13 @@ public class EncodingFilter implements Filter {
 	}
 
 	/**
-	 * 这个编码过滤器没屁用
+	 * 这个编码过滤器对前台起作用，但后台不知道还用没
 	 */
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-//        request.setCharacterEncoding("UTF-8");
-//        response.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("utf-8");
         chain.doFilter(request, response);
 	}
 

@@ -1,16 +1,20 @@
 package tmall.servlet;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.web.util.HtmlUtils;
 
 import tmall.bean.Category;
+import tmall.bean.Order;
 import tmall.bean.OrderItem;
 import tmall.bean.Product;
 import tmall.bean.ProductImage;
@@ -40,7 +44,8 @@ public class ForeServlet extends BaseForeServlet {
     }
     
     public String register(HttpServletRequest request, HttpServletResponse response, Page page) {
-    	String name = XuEncodeUtil.getNewString(request.getParameter("name"));
+    	//String name = XuEncodeUtil.getNewString(request.getParameter("name"));
+    	String name = request.getParameter("name");
         String password = request.getParameter("password");
         name = HtmlUtils.htmlEscape(name);//java后台对前端输入的特殊字符进行转义
         if(userDAO.isExist(name)) {
@@ -55,7 +60,8 @@ public class ForeServlet extends BaseForeServlet {
     }
     
     public String login(HttpServletRequest request, HttpServletResponse response, Page page) {
-    	String name = XuEncodeUtil.getNewString(request.getParameter("name"));
+//    	String name = XuEncodeUtil.getNewString(request.getParameter("name"));
+    	String name = request.getParameter("name");
     	String password = request.getParameter("password");
     	name = HtmlUtils.htmlEscape(name);//java后台对前端输入的特殊字符进行转义
     	User user = userDAO.get(name, password);
@@ -92,8 +98,8 @@ public class ForeServlet extends BaseForeServlet {
     }
     
     public String search(HttpServletRequest request, HttpServletResponse response, Page page) {
-    	//String keyword = XuEncodeUtil.getNewString(request.getParameter("keyword"));
-    	String keyword =request.getParameter("keyword");//将提交方式改为get了。没办法。哎
+    	//String keyword = XuEncodeUtil.getNewString(request.getParameter("keyword"));//查询后的乱码没解决
+    	String keyword =request.getParameter("keyword");
     	List<Product> ps = productDAO.search(keyword, 0, 20);
     	//productDAO.setSaleAndReviewNumber(ps);
         request.setAttribute("ps", ps);
@@ -128,6 +134,7 @@ public class ForeServlet extends BaseForeServlet {
             OrderItem oi = new OrderItem();
         	oi.setUser(user);
         	oi.setProduct(productDAO.get(pid));
+        	oi.setNumber(num);
             orderItemDAO.add(oi);
         }
     	return "%success";
@@ -235,9 +242,44 @@ public class ForeServlet extends BaseForeServlet {
     	else return "%success";
     }
     
+    //在结算页面，提交订单时候，根据结算页面的收货人信息，订单项信息，生成订单数据
     public String createOrder(HttpServletRequest request, HttpServletResponse response, Page page) {
-    	
-    	return "";
+    	User user = (User) request.getSession().getAttribute("user");
+        String address = request.getParameter("address");
+        String post = request.getParameter("post");
+        String receiver = request.getParameter("receiver");
+        String mobile = request.getParameter("mobile");
+        String userMessage = request.getParameter("userMessage");
+        String orderCode = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomUtils.nextInt(10000);
+        
+        Order order = new Order();
+        order.setOrderCode(orderCode);
+        order.setAddress(address);
+        order.setPost(post);
+        order.setReceiver(receiver);
+        order.setMobile(mobile);
+        order.setUserMessage(userMessage);
+        order.setCreateDate(new Date());
+        order.setUser(user);
+        order.setStatus(orderDAO.waitPay);
+        orderDAO.add(order);
+        
+        // 遍历订单项集合，设置每个订单项的order，并更新到数据库
+        List<OrderItem> ois = (List<OrderItem>) request.getSession().getAttribute("ois");
+        float total = 0;
+        for (OrderItem oi : ois) {
+            oi.setOrder(order);//这里设置的是Order。而在update里面，根据order来拿其id。这样就存进去数据库了
+            orderItemDAO.update(oi);
+            total += oi.getProduct().getPromotePrice() * oi.getNumber();
+        }
+        //param 专门用于获取地址栏里的参数
+    	return "@forealipay?oid=" + order.getId() + "&total=" + total;
+    	//我的话就是"alipay.jsp"，但是根据三大范式，一个业务数据，不能存在于多张表里。倘若为order表增加这个字段，那么当因为各种原因，没有同步的时候，total就有两个值，
+    }
+    
+    //为啥前面的生成订单要单独出来进行重定向。？
+    public String alipay(HttpServletRequest request, HttpServletResponse response, Page page) {
+        return "alipay.jsp";
     }
     
     public String changeOrderItem(HttpServletRequest request, HttpServletResponse response, Page page) {
@@ -247,6 +289,42 @@ public class ForeServlet extends BaseForeServlet {
     	oi.setNumber(num);
     	orderItemDAO.update(oi);
     	return "%success";
+    }
+    
+    public String payed(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int id = Integer.parseInt(request.getParameter("oid"));
+    	Order o = orderDAO.get(id);
+    	o.setStatus(orderDAO.waitDelivery);//z支付后就等待发货
+    	o.setPayDate(new Date());
+    	orderDAO.update(o);//一定要记得这个更新
+    	request.setAttribute("o", o);
+    	return "payed.jsp";
+    }
+    
+    //订单页一次性将所有订单都进行展示。选择不同的类型订单就隐藏其他订单。
+    public String bought(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	User user = (User) request.getSession().getAttribute("user");
+    	List<Order> os = orderDAO.list(user.getId(), "");//""拿到所有，null不能拿。
+    	//这里拿到os后还需要fill.每个订单如何绑定对应的订单项呢。由于生产订单的时候设置了订单。每一个订单项对应一个订单id
+    	orderItemDAO.fill(os);//所以这种东西要提前写好，在DAO
+//    	for(Order o:os) {
+//    		List<OrderItem>ois = orderItemDAO.listByOrder(o.getId());
+//    		o.setOrderItems(ois);
+//    		o.setTotalNumber(ois.size());//设置订单项数目
+//    		for(OrderItem oi:ois) {
+//    			productDAO.setFirstProductImage(oi.getProduct());//给订单项的每一个产品设置图片
+//    		}
+//    	}
+    	request.setAttribute("os", os);
+    	return "bought.jsp";
+    }
+    
+    public String deleteOrder(HttpServletRequest request, HttpServletResponse response, Page page) {
+    	int oid = Integer.parseInt(request.getParameter("oid"));
+    	Order o = orderDAO.get(oid);
+        o.setStatus(orderDAO.delete);
+        orderDAO.update(o);
+        return "%success";//不是真删除
     }
 
     

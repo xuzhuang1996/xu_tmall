@@ -100,7 +100,7 @@ public class OrderItemDAO {
 		}
         return beans;
     }
-    //暂时不清楚用途
+    //见foreServlet的bought方法。
     public void fill(List<Order> os) {
         for (Order o : os) {
             List<OrderItem> ois = listByOrder(o.getId());
@@ -109,6 +109,7 @@ public class OrderItemDAO {
             for (OrderItem oi : ois) {
                 total += oi.getNumber() * oi.getProduct().getPromotePrice();
                 totalNumber += oi.getNumber();
+                new ProductDAO().setFirstProductImage(oi.getProduct());//给订单项的每一个产品设置图片(这个博主没写？)
             }
             o.setTotal(total);
             o.setOrderItems(ois);

@@ -2,17 +2,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script>
     var deleteOrder = false;
     var deleteOrderid = 0;
 
+    //点击待发货所有订单这种，将订单根据状态进行了分类
     $(function () {
         $("a[orderStatus]").click(function () {
             var orderStatus = $(this).attr("orderStatus");
             if ('all' == orderStatus) {
-                $("table[orderStatus]").show();
+                $("table[orderStatus]").show();//指的是所有的订单
             } else {
-                $("table[orderStatus]").hide();
+                $("table[orderStatus]").hide();//所有的订单table隐藏。根据符合的订单进行显示
                 $("table[orderStatus=" + orderStatus + "]").show();
             }
 

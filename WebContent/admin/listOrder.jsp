@@ -5,9 +5,11 @@
 
 <script>
     $(function () {
+    	
+    	
         $("button.orderPageCheckOrderItems").click(function () {
             const oid = $(this).attr("oid");
-            $("tr.orderPageOrderItemTR[oid=" + oid + "]").toggle();
+            $("tr.orderPageOrderItemTR[oid=" + oid + "]").toggle();//方法切换元素的可见状态。
         });
     });
 </script>
@@ -38,6 +40,7 @@
             <c:forEach items="${os}" var="o">
                 <tr>
                     <td>${o.id}</td>
+                    <!-- ${o.statusDesc} 这个EL表达式的工作方式，就是到Order对象里去访问getStatusDesc()方法，至于Order对象是否有statusDesc属性，它并不关心。 -->
                     <td>${o.statusDesc}</td>
                     <td>￥<fmt:formatNumber type="number" value="${o.total}"
                                            minFractionDigits="2"/>
@@ -58,7 +61,7 @@
                         <fmt:formatDate value="${o.confirmDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
                     </td>
                     <td>
-                        <button oid=${o.id}>
+                        <button oid=${o.id} class="orderPageCheckOrderItems">
                             查看详情
                         </button>
                         <c:if test="${o.status=='waitDelivery'}">
@@ -68,7 +71,7 @@
                         </c:if>
                     </td>
                 </tr>
-                <tr class="orderPageOrderItemTR" oid=${o.id}>
+                <tr class="orderPageOrderItemTR" oid=${ o.id}>
                     <td colspan="10" align="center">
                         <div class="orderPageOrderItem">
                             <table width="800px" align="center" class="orderPageOrderItemTable">
