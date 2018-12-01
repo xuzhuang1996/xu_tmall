@@ -24,7 +24,8 @@ public class PropertyServlet extends BaseBackServlet{
 public String add(HttpServletRequest request, HttpServletResponse response, Page page) {
 	//前端传来name,cid.这里不一样在于，之前进入list的时候分类页面下有传一个cid，而这里没直接传。我觉得可以request传一个，但是之后重定向。不可
 	int cid = Integer.parseInt(request.getParameter("cid"));
-	String name=XuEncodeUtil.getNewString(request.getParameter("name"));
+	//String name=XuEncodeUtil.getNewString(request.getParameter("name"));
+	String name=request.getParameter("name");
 	Category c = categoryDAO.get(cid);
 	Property p = new Property();
 	p.setCategory(c);
@@ -51,7 +52,7 @@ public String edit(HttpServletRequest request, HttpServletResponse response, Pag
 
 @Override
 public String update(HttpServletRequest request, HttpServletResponse response, Page page) {
-	String name=XuEncodeUtil.getNewString(request.getParameter("name"));
+	String name=request.getParameter("name");
 	int cid = Integer.parseInt(request.getParameter("cid"));
 	int id = Integer.parseInt(request.getParameter("id"));
 	Property p =propertyDAO.get(id);

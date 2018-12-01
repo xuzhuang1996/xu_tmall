@@ -9,7 +9,7 @@ jsp+servlet模仿天猫,来自http://how2j.cn。
 - 之后，具体设计应该是根据范式来确定，因此不深究。每个类别会有不同的属性，因此property（属性表）需要外键来指向Category。如电视共用5种属性的话，这5种属性的名字都在property存储，根据cid外键来指明这是哪个类别的属性：在属性表中添加外键名为fk_property_category的外键，此外键的参照为分类表的id。Category为主，property为从，这里没有关联增删操作，否则，Category变时property跟着变，但property变时Category不变。    
 - product表，一个分类下含多个产品，因此product设置外键指向Category。    
 - propertyvalue属性值表，由于该属性值表存储所有的属性的值，此外，该属性是哪个产品的属性的呢，因此有2个外键。    
-- productimage表，保存2种图片，详细图片与缩略图。这里并没有将图片保存在数据库？    
+- productimage表，保存2种图片，详细图片与缩略图。这里并没有将图片保存在数据库。后面将图片保存Tomcat目录下，根据地址访问。    
 - review表包括用户与产品。     
 - order_订单表，orderitem订单项表，orderitem，包括用户、产品、在哪个订单里。购物车功能中，每个用户的订单项会显示状态，因此不需要购物车。
 
@@ -21,6 +21,7 @@ jsp+servlet模仿天猫,来自http://how2j.cn。
 - 另外，在根据id获取对象，选择自定义一个对象处理Handler，用来将类的属性不与表的字段相匹配的情况。在list函数中，添加ListHandler类来处理查询多个的情况。对ResultSet rs重新定向，用法与mapgis的Recordset一致。
 - （在MySQL被删除的情况下重装，注册表啥的都没了，但还是装不了，显示缺文件。缺C++2015啥的，下载地址为https://www.microsoft.com/en-us/download/details.aspx?id=53587） 。
 - （不打算创建service层，即使dao层比较臃肿，时间不够。因此分页查询就使用原来的，不改）
+- ** 属性值的初始化函数。由于属性可以增加，但属性值只能修改。因此，属性值需要一个初始化的值。在后台增加一个产品的时候，产品有属性，此时需要属性值，不然的话数据库中PropertyValue属性值这个表哪来的数据，也就没法进行修改啥的。因此增加产品的时候需要将产品下的所有属性初始化属性值，于是整合成了一个init函数 **。
 
 # 二、后台部分
 &ensp;&ensp;&ensp;&ensp;4.开始写servlet，由于是普通Java项目，为了调试我将其转为动态项目。http://how2j.cn/k/servlet/servlet-switch/1346.html 。然后将webroot下的bin放进相应位置，不然servlet没法创建。  
@@ -58,23 +59,12 @@ jsp发送数据action="admin_category_add"，过滤器拦截admin_category_add�
 
 # 三、前后台部分
 &ensp;&ensp;&ensp;&ensp;15主要说一下那个错误提示，比如登录或者注册的时候，如果密码不正确，submit后，根据相应函数处理后，通过request.setAttribute("msg", "用户名已经被使用,不能使用");返回错误信息，<c:if test="${!empty msg}">在原先表单那输出错误信息：$("span.errorMessage").html("${msg}");另外ajax请求的数据不需要转化的处理。再就是，数据库存储的数据跟一个bean下的数据不是完全匹配的，比如一个分类下的所有产品，数据库并没有存储，产品只是存储了cid，因此每次取出来产品的时候就需要进行一个设置。  
-&ensp;&ensp;&ensp;&ensp;16使用lambdas表达式来进行排序。简化代码。另外${param.keyword}的写法是从地址栏拿的参数。虽然我觉得没啥区别。  
-
-**总的来说，前后台部分，比较麻烦。**  
-17.点击购买时，在imgAndInfo.jsp页面绑定的按钮事件会触发，forecheckLogin进行判断是否登陆，已登陆则进入购买函数中，提交了pid,num等信息，再从modal.jsp拿到用户就可以生成一个订单项了。否则modal.jsp出现。  
+&ensp;&ensp;&ensp;&ensp;16使用lambdas表达式来进行排序。简化代码。另外${param.keyword}的写法是从地址栏拿的参数。虽然我觉得没啥区别。   
+&ensp;&ensp;&ensp;&ensp;17.点击购买时，在imgAndInfo.jsp页面绑定的按钮事件会触发，forecheckLogin进行判断是否登陆，已登陆则进入购买函数中，提交了pid,num等信息，再从modal.jsp拿到用户就可以生成一个订单项了。否则modal.jsp出现。  
 不知道咋回事，有可能是两台电脑的配置不统一，现在编码过滤器反而能用了。目前后台没出事。前台的所有处理过的都要测试。功能目前支付成功了。  
 **订单项在产生的时候，只有产品用户信息（加入购物车产生）。而订单产生的时候，生成了id。这个时候对订单项进行的绑定，也就是每个订单项现在多了oid这个数据。之后取订单出来查看的时候，想看订单有啥（这个就是fill函数来完成，因为刚从数据库取出来啥也没有，只有基本数据），需要查订单项，根据订单项的oid来确实2者的关系**   
 
 -------------------------------------
-总结：反射：
-  
-- 后台反射
-- 后台反射
 
-总结：数据库存储的数据与bean中数据：
-
-
-在原博主基础上，加了个点击加入购物车，上方的数量会变化。  
-下一步：准备将评论做一个。
 
 

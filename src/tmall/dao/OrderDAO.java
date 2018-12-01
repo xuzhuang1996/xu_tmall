@@ -60,6 +60,7 @@ public class OrderDAO {
         return list(uid, excludedStatus, 0, Short.MAX_VALUE);
     }
 
+    //根据用户订单的状态进行list
     public List<Order> list(int uid, String excludedStatus, int start, int count) {
         List<Order> beans = new ArrayList<>();
         String sql = "SELECT * FROM `Order_` WHERE `uid` = ? AND STATUS != ? ORDER BY `id` DESC " +

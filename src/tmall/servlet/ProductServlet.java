@@ -24,8 +24,8 @@ public class ProductServlet extends BaseBackServlet {
 	@Override
 	public String add(HttpServletRequest request, HttpServletResponse response, Page page) {
 		int cid = Integer.parseInt(request.getParameter("cid"));
-		String name=XuEncodeUtil.getNewString(request.getParameter("name"));
-		String subTitle=XuEncodeUtil.getNewString(request.getParameter("subTitle"));
+		String name=request.getParameter("name");
+		String subTitle=request.getParameter("subTitle");
 		float orignalPrice = Float.parseFloat(request.getParameter("orignalPrice"));
 		float promotePrice = Float.parseFloat(request.getParameter("promotePrice"));
 		int stock = Integer.parseInt(request.getParameter("stock"));
@@ -64,8 +64,8 @@ public class ProductServlet extends BaseBackServlet {
 	public String update(HttpServletRequest request, HttpServletResponse response, Page page) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		int cid = Integer.parseInt(request.getParameter("cid"));
-		String name=XuEncodeUtil.getNewString(request.getParameter("name"));
-		String subTitle=XuEncodeUtil.getNewString(request.getParameter("subTitle"));
+		String name=request.getParameter("name");
+		String subTitle=request.getParameter("subTitle");
 		float orignalPrice = Float.parseFloat(request.getParameter("orignalPrice"));
 		float promotePrice = Float.parseFloat(request.getParameter("promotePrice"));
 		int stock = Integer.parseInt(request.getParameter("stock"));
